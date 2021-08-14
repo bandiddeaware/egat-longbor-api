@@ -1,0 +1,904 @@
+note config: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+
+
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+
+============== FIND PERSON all =============
+SELECT ps.*, pcs.id, pcs.description, card.*
+FROM person as ps
+
+INNER JOIN person_card_status as pcs
+ON ps.card_status = pcs.id
+
+INNER JOIN company as cp
+ON ps.company_id = cp.id
+
+INNER JOIN card as card
+ON ps.card_id = card.id OR ps.card_id IS NULL
+
+WHERE 1
+
+LIMIT 10 OFFSET 0 
+
+============== FIND PERSON MAIN BY company_id =============
+SELECT ps.*, pcs.id, pcs.description, card.*
+FROM person as ps
+
+INNER JOIN person_card_status as pcs
+ON ps.card_status = pcs.id
+
+INNER JOIN company as cp
+ON ps.company_id = cp.id
+
+LEFT JOIN card as card
+ON ps.card_id = card.id
+
+
+WHERE company_id = 14
+
+LIMIT 1000 OFFSET 0
+
+
+============== FIND PERSON MAIN BY name and surname =============
+SELECT ps.*, pcs.id, pcs.description, card.*
+FROM person as ps
+
+INNER JOIN person_card_status as pcs
+ON ps.card_status = pcs.id
+
+INNER JOIN company as cp
+ON ps.company_id = cp.id
+
+LEFT JOIN card as card
+ON ps.card_id = card.id
+
+
+WHERE ps.firstname = "นิคม" AND ps.lastname = "ทองน้อย"
+
+LIMIT 1000 OFFSET 0
+
+============== FIND PERSON MAIN BY idcard =============
+SELECT ps.*, pcs.id, pcs.description, card.*
+FROM person as ps
+
+INNER JOIN person_card_status as pcs
+ON ps.card_status = pcs.id
+
+INNER JOIN company as cp
+ON ps.company_id = cp.id
+
+LEFT JOIN card as card
+ON ps.card_id = card.id
+
+
+WHERE ps.idcard = "3529900280661"
+
+LIMIT 1000 OFFSET 0
+
+
+============== FIND ACCESS_LOG MAIN BY type={TYPE_PERSON = 1} =============
+// access_type
+//   TYPE_UNKNOWN = 0;
+//   TYPE_PERSON = 1;
+//   TYPE_VEHICLE = 2;
+
+// access_direction
+//   IN = 0;
+//   OUT = 1;
+
+## query for person >> in
+SELECT COUNT(*)
+FROM access_log as acl
+
+LEFT JOIN person as ps
+ON ps.id = acl.person_id
+
+WHERE acl.access_type = 1 AND access_direction = 0 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+ORDER BY acl.access_time ASC
+
+
+## query for person >> out
+SELECT COUNT(*)
+FROM access_log as acl
+
+LEFT JOIN person as ps
+ON ps.id = acl.person_id
+
+WHERE acl.access_type = 1 AND access_direction = 1 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+ORDER BY acl.access_time ASC
+
+## query for car >> in
+SELECT COUNT(*)
+FROM access_log as acl
+
+LEFT JOIN vehicle as vh
+ON vh.id = acl.vehicle_id
+
+WHERE acl.access_type = 2 AND access_direction = 0 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+ORDER BY acl.access_time ASC
+
+## query for car >> out
+SELECT COUNT(*)
+FROM access_log as acl
+
+LEFT JOIN vehicle as vh
+ON vh.id = acl.vehicle_id
+
+WHERE acl.access_type = 2 AND access_direction = 1 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+ORDER BY acl.access_time ASC
+
+
+================================================================================================================
+================================================================================================================
+================================================================================================================
+
+
+## (ด่านลงบ่อ 1) = 50000
+
+
+
+query for person >> in ได้ count = 21
+query for person >> out ได้ count = 1
+query for car >> in ได้ count = 2
+query for car >> out ได้ count = 0
+
+
+
+
+
+
+
+
+SELECT person_id, acl.* , ps.*
+FROM access_log as acl
+
+LEFT JOIN person as ps
+ON ps.id = acl.person_id
+
+GROUP BY person_id
+
+WHERE acl.access_type = 1 AND access_direction = 0 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+
+ORDER BY acl.access_time ASC
+
+
+
+SELECT DISTINCT acl.person_id
+FROM access_log as acl
+
+WHERE 1
+
+
+
+SELECT 
+  article_views.article_id, 
+  articles.article_title, 
+  articles.artcile_url,
+  SUM( article_views.article_count ) AS cnt
+FROM article_views
+INNER JOIN articles ON articles.article_id = article_views.article_id
+GROUP BY article_views.article_id,   
+         articles.article_title, 
+         articles.artcile_url
+ORDER BY cnt DESC
+LIMIT 5;
+
+
+
+query for person >> in (2021-07-11)
+SELECT acl.*, ps.*
+FROM access_log as acl
+
+LEFT JOIN person as ps
+ON ps.id = acl.person_id
+
+WHERE acl.access_type = 1 AND access_direction = 0 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+
+GROUP BY acl.person_id
+
+ORDER BY acl.access_time ASC
+
+RESULT: 3 row
+
+query for person >> out (2021-07-11)
+SELECT acl.*, ps.*
+FROM access_log as acl
+
+LEFT JOIN person as ps
+ON ps.id = acl.person_id
+
+WHERE acl.access_type = 1 AND access_direction = 1 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+
+GROUP BY acl.person_id
+
+ORDER BY acl.access_time ASC
+
+RESULT: 1 row
+
+
+
+
+total_person_in
+total_person_out
+total_vehicle_in
+total_vehicle_out
+
+
+
+#######################################################################
+################### query for sumary person and car ###################
+#######################################################################
+SELECT  (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+    
+    LEFT JOIN person as ps
+    ON ps.id = acl.person_id
+    
+    WHERE acl.access_type = 1 AND acl.access_direction = 0 AND acl.person_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+    
+    GROUP BY acl.person_id
+
+  ) AS SUB_COUNT_PERSON_IN
+
+) AS total_person_in, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+    
+    LEFT JOIN person as ps
+    ON ps.id = acl.person_id
+    
+    WHERE acl.access_type = 1 AND acl.access_direction = 1 AND acl.person_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+    
+    GROUP BY acl.person_id
+
+  ) AS SUB_COUNT_PERSON_OUT
+
+) AS total_person_out, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+
+    LEFT JOIN vehicle as vh
+    ON vh.id = acl.vehicle_id
+    
+    WHERE acl.access_type = 2 AND acl.access_direction = 0 AND acl.vehicle_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59' 
+    
+    GROUP BY acl.vehicle_id
+
+  ) AS SUB_COUNT_VEHICLE_IN
+
+) AS total_vehicle_in, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+
+    LEFT JOIN vehicle as vh
+    ON vh.id = acl.vehicle_id
+    
+    WHERE acl.access_type = 2 AND acl.access_direction = 1 AND acl.vehicle_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59' 
+    
+    GROUP BY acl.vehicle_id
+
+  ) AS SUB_COUNT_VEHICLE_OUT
+
+) AS total_vehicle_out
+
+
+
+
+
+
+
+
+
+
+
+##################################################################################
+################### query for sumary person, car split in, out ###################
+##################################################################################
+SELECT  (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+    
+    LEFT JOIN person as ps
+    ON ps.id = acl.person_id
+    
+    WHERE acl.access_type = 1 AND acl.access_direction = 0 AND acl.person_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+    
+    GROUP BY acl.person_id
+
+  ) AS SUB_COUNT_PERSON_IN
+
+) AS total_person_in, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+    
+    LEFT JOIN person as ps
+    ON ps.id = acl.person_id
+    
+    WHERE acl.access_type = 1 AND acl.access_direction = 1 AND acl.person_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+    
+    GROUP BY acl.person_id
+
+  ) AS SUB_COUNT_PERSON_OUT
+
+) AS total_person_out, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+
+    LEFT JOIN vehicle as vh
+    ON vh.id = acl.vehicle_id
+    
+    WHERE acl.access_type = 2 AND acl.access_direction = 0 AND acl.vehicle_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59' 
+    
+    GROUP BY acl.vehicle_id
+
+  ) AS SUB_COUNT_VEHICLE_IN
+
+) AS total_vehicle_in, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+
+    LEFT JOIN vehicle as vh
+    ON vh.id = acl.vehicle_id
+    
+    WHERE acl.access_type = 2 AND acl.access_direction = 1 AND acl.vehicle_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59' 
+    
+    GROUP BY acl.vehicle_id
+
+  ) AS SUB_COUNT_VEHICLE_OUT
+
+) AS total_vehicle_out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO 
+\`access_log\`(
+  \`access_time\`,
+  \`access_result\`, 
+  \`access_type\`, 
+  \`access_direction\`, 
+  \`entrance_id\`, 
+  \`ch_id\`, 
+  \`ch_type\`, 
+  \`card_id\`, 
+  \`person_id\`
+  ) 
+VALUES 
+(
+  "${new Date()}",
+  0,
+  1,
+  0,
+  1,
+  1,
+  0,
+  202100001,
+  2903
+)
+
+
+มันจะมีเหตุการณ์แบบนี้ป่ะ ยูเซอแตะบัตรเข้า 10 ครั้งแล้วค่อยเข้าให้ประตูเปิดเล่นๆ 9 ครั้งแล้วเข้าครั้งที่ 10
+
+
+
+
+// access_type
+//   TYPE_UNKNOWN = 0;
+//   TYPE_PERSON = 1;
+//   TYPE_VEHICLE = 2;
+
+// access_direction
+//   IN = 0;
+//   OUT = 1;
+
+##list_person
+SELECT acl.*, ps.*
+FROM access_log as acl
+
+LEFT JOIN person as ps
+ON ps.id = acl.person_id
+
+WHERE acl.access_type = 1 AND ( access_direction = 1 OR access_direction = 0 ) AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+
+GROUP BY acl.person_id
+
+ORDER BY acl.access_time ASC
+
+
+##list_car
+SELECT acl.*, vh.*
+FROM access_log as acl
+
+LEFT JOIN vehicle as vh
+ON vh.id = acl.vehicle_id
+
+WHERE acl.access_type = 2 AND
+acl.access_time BETWEEN '2021-07-11 00:00:00' AND '2021-07-11 23:59:59'
+
+GROUP BY acl.person_id
+
+ORDER BY acl.access_time ASC
+
+
+================================================================================================================
+================================================== INSERT PERSON  ==============================================
+================================================================================================================
+
+    // var query = `
+    //   INSERT INTO 'person'
+    //   (
+    //     'idcard',
+    //     'name_title',
+    //     'firstname',
+    //     'lastname',
+    //     'birthday',
+    //     'sex',
+    //     'religion',
+    //     'house_no',
+    //     'village_no',
+    //     'alley',
+    //     'lane',
+    //     'road',
+    //     'sub_district',
+    //     'district',
+    //     'provinces',
+    //     'idcard_expired',
+    //     'picture',
+    //     'company_id',
+    //     'created_at',
+    //     'modified_at',
+    //     'mine_permit',
+    //     'card_id',
+    //     'card_expired',
+    //     'card_status'
+    //   )
+    //   VALUES 
+    //   (
+    //     '${id_card}',
+    //     '${title}',
+    //     '${name}',
+    //     '${surname}',
+    //     '${date_bird}',
+    //     '${sex}',
+    //     '${religious}',
+    //     '${house_number}',
+    //     '${village_number}',
+    //     '${alley}',
+    //     '${lane}',
+    //     '${road}',
+    //     '${sub_district}',
+    //     '${district}',
+    //     '${province}',
+    //   )
+    // `
+
+Param Description
+access_type = 1         คน
+access_type = 2         พาหนะ
+access_direction = 0    เข้า
+access_direction = 1    ออก
+note: 
+  #### ค้นหาจำนวนคนเข้า-ออก  
+
+  เงื่อนไขระบบวันที่:
+    access_time BETWEEN {{start_time}} AND {{stop_time}}
+
+  #  เงื่อนไขคนเข้า:
+      access_type = 1
+      access_direction = 0
+    
+  #  เงื่อนไขคนออก:
+      access_type = 1
+      access_direction = 1
+
+  เพิ่มเงื่อนไขบัตรไม่ลงทะเบียน:
+    person_id IS NOT NULL
+
+  ได้ข้อมูลแล้วเอามา group:
+    person_id
+
+  ## ได้ผลลัพธ์แล้วเอามา COUNT ROW
+
+
+  #### ค้นหารายชื่อคนเข้าออก
+
+  -# เงื่อนไขระบบวันที่:
+    access_time BETWEEN {{start_time}} AND {{stop_time}}
+
+  -#  เลือกเฉพาะคน:
+      access_type = 1
+
+  -# ถ้าเจอบัตรที่ไม่ได้ลบทะเบียนเอามาแสดงด้วย
+
+  -## LEFT JOIN table person as ps
+    acl.person_id = ps.id
+  // เอารายชื่อบุคคล
+
+      LEFT JOIN person as ps
+        ON acl.person_id = ps.id
+
+  -## LEFT JOIN table company as cn
+    ps.company_id = cn.id
+  // เอาชื่อบริษัท
+
+      LEFT JOIN company as cn
+        ON ps.company_id = cn.id
+
+  -## LEFT JOIN table person_card_status as pcs
+    ps.card_status = pcs.id
+  // เอาสถานะบัตรของบุคคล
+
+    LEFT JOIN person_card_status as pcs
+      ON ps.card_status = pcs.id
+
+  ## LEFT JOIN table tb_entrance as et
+    acl.entrance_id = et.id
+  // เอารายชื่ออุปกรณ์
+
+    LEFT JOIN tb_entrance as et
+      ON acl.entrance_id = et.id
+
+  -## LEFT JOIN table card as card
+    acl.card_id = card.id
+  // เอารายละเอียดบัตร
+
+    LEFT JOIN card as card
+      ON acl.card_id = card.id
+
+  -## LEFT JOIN table card_type as card_t
+    card.type = card_t.id
+  // เอาประเภทบัตร
+
+    LEFT JOIN card_type as card_t
+      ON card.type = card_t.id
+
+  -### เรียงข้อมูลตามวันจากน้องไปมาก
+
+========== ========== ========== 
+========== QUERY TEST ==========
+========== ========== ========== 
+SELECT acl.*, ps.*, cn.*, card.*, card_t.*
+FROM access_log as acl
+
+LEFT JOIN person as ps
+  ON acl.person_id = ps.id
+
+LEFT JOIN company as cn
+  ON ps.company_id = cn.id
+
+LEFT JOIN person_card_status as pcs
+  ON ps.card_status = pcs.id
+
+LEFT JOIN card as card
+  ON acl.card_id = card.id
+
+LEFT JOIN card_type as card_t
+  ON card.type = card_t.id
+
+WHERE 
+	acl.access_type = 1 AND
+	acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+
+GROUP BY acl.person_id
+
+ORDER BY acl.access_time ASC
+
+
+รายละเอียดตาราง: entrance
+  id          int
+  name        varchar
+  lat         varchar
+  long        varchar
+  device_id   int
+
+รายละเอียดตาราง: device
+  id      int
+  name    varchar
+  rpi     datetime
+  rfid    datetime 
+  cam1    datetime
+  cam2    datetime
+  cam3    datetime
+  lat     varchar
+  long    varchar
+
+
+
+ตย. 
+table entrance:
+id    type          name         lat         long     
+----------------------------------------------------------------------
+1     GATE          gate 1       18.554      104.5555 
+
+table device:
+id      enchance_id     name          lasttime 
+----------------------------------------------------------------------
+1000    1               rpi1          2021-10-04 11:33:22
+1001    1               rfid1         2021-10-04 11:33:22
+1002    1               rpi2          2021-10-04 11:33:22
+1003    1               cam1          2021-10-04 11:33:22
+
+
+/// INSERT ////
+INSERT INTO person SET    
+  idcard = '1452166002150', 
+  name_title = 'นาย',       
+  firstname = 'บัณฑิต',     
+  lastname = 'คุ้มสวัสดิ์', 
+  birthday = '1998-09-19',  
+  sex = 'ชาย',
+  religion = 'xxxx',
+  house_no = 'xxxx',
+  village_no = 'xxxx',
+  alley = 'xxxx',
+  lane = 'xxxx',
+  road = 'xxxx',
+  sub_district = 'xxxx',
+  district = 'xxxx',
+  provinces = 'xxxx',
+  idcard_expired = '2021-07-11',
+  picture = '1452166002150.jpg',
+  company_id = '13',
+  created_at = '2021-07-06 04:07:11',
+  modified_at = '2021-07-06 04:07:11',
+  mine_permit = '1',
+  card_id = '22334',
+  card_expired = '2021-07-11',
+  card_status = '5'
+
+
+
+INSERT INTO person
+(
+  idcard,
+  name_title,
+  firstname,
+  lastname,
+  birthday,
+  sex,
+  religion,
+  house_no,
+  village_no,
+  alley,
+  lane,
+  road,
+  sub_district,
+  district,
+  provinces,
+  idcard_expired,
+  picture,
+  company_id,
+  created_at,
+  modified_at,
+  mine_permit,
+  card_id,
+  card_expired,
+  card_status
+)
+VALUES 
+(
+  '${idcard}', 
+  '${name_title}', 
+  '${firstname}', 
+  '${lastname}', 
+  '${birthday}', 
+  '${sex}', 
+  '${religion}', 
+  '${house_no}', 
+  '${village_no}', 
+  '${alley}', 
+  '${lane}', 
+  '${road}', 
+  '${sub_district}', 
+  '${district}', 
+  '${provinces}', 
+  '${idcard_expired}', 
+  '${picture}', 
+  '${company_id}', 
+  '${created_at}', 
+  '${modified_at}', 
+  '${mine_permit}', 
+  '${card_id}', 
+  '${card_expired}', 
+  '${card_status}'
+)
+
+
+
+
+
+using => 
+  select DATE_ADD("2021-08-09T18:31:58.000Z", INTERVAL 7 hour)
+
+
+แชมป์งานวันนี้
+1. งานวันนี้ลง certbot
+2. แก้เรื่องเวลาให้ +7 มาด้วย - แก้แล้ว เพิ่มคอนฟิก connection
+
+
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/Deaware-RD/EGAT-Longbor-ACLM/protobuf/aclm";
+package aclm;
+
+service ACLM {
+  rpc DoPing(Ping) returns (Pong) {}
+  rpc GetCardAndInfo (AccessCard) returns (CardAndInfo) {}
+  rpc SaveAccessLog (AccessLog) returns (LogResult) {}
+  rpc SaveAssemblyPointLog (AssemblyPointLog) returns (LogResult) {}
+}
+
+enum CardType {
+  UNKNOWN = 0;
+  MIFARE = 1;
+  UHF = 2;
+}
+
+enum CardStatus {
+  STATUS_INACTIVE = 0;
+  STATUS_ACTIVE = 1;
+  STATUS_LOST = -1;
+}
+
+enum ChType {
+	CH_PERSON = 0;
+	CH_VEHICLE = 1;
+}
+
+enum AccessResult {
+  ACCESS_GRANTED = 0;
+  PERMISSION_DENIED = -1;
+  CARD_EXPIRED = -2;
+  NO_CARD_EXISTED = -3;
+  INVALID_CHANNEL_TYPE = -4;
+  CARD_NOT_ACTIVATED = -5;
+  PASSBACK_VIOLATION = -6;
+}
+
+enum AccessType {
+  TYPE_UNKNOWN = 0;
+  TYPE_PERSON = 1;
+  TYPE_VEHICLE = 2;
+}
+
+enum AccessDirection {
+  IN = 0;
+  OUT = 1;
+}
+
+message AccessCard {
+  string cardRfid = 1;
+  CardType cardType = 2;
+}
+
+message CardAndInfo {
+  Card card = 1;
+  AccessType accessType = 2;
+  oneof info {
+    Person person = 3;
+    Vehicle vehicle = 4;
+  }
+}
+
+message Card {
+  uint32     id       = 1;
+  string     uhfId    = 2;
+  string     mifareId = 3;
+  CardStatus status   = 4;
+  uint32     type     = 5;
+  string     typeDesc = 6;
+}
+
+message Person {
+  uint32 id = 1;
+  string image = 2;
+  string name = 3;
+  string company = 4;
+  uint32 minePermit = 5;
+  google.protobuf.Timestamp cardExpired = 6;
+  google.protobuf.Timestamp checkInAt = 7;
+  google.protobuf.Timestamp checkOutAt = 8;
+  google.protobuf.Timestamp asbpCheckedAt = 9;
+}
+
+message Vehicle {
+  uint32 id = 1;
+  string image = 2;
+  string licensePlate = 3;
+  string brand = 4;
+  string model = 5;
+  string company = 6;
+  google.protobuf.Timestamp cardExpired = 7;
+  google.protobuf.Timestamp checkInAt = 8;
+  google.protobuf.Timestamp checkOutAt = 9;
+}
+
+message AccessLog {
+  google.protobuf.Timestamp accessTime = 1;
+	AccessResult    accessResult = 2;
+	AccessType      accessType = 3;
+	AccessDirection accessDirection = 4;
+	uint32          entranceId = 5;
+	uint32          channelId = 6;
+	ChType          channelType = 7;
+	uint32          cardId = 8;
+	uint32          mappedId = 9;
+}
+
+message LogResult {
+}
+
+message AssemblyPointLog {
+  google.protobuf.Timestamp accessTime = 1;
+	uint32          stationId = 2;
+	uint32          cardId = 3;
+	uint32          personId = 4;
+}
+
+message Ping {
+  string message = 1;
+}
+
+message Pong {
+  string message = 1;
+}

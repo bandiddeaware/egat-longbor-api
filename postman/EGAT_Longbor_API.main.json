@@ -1,0 +1,3763 @@
+{
+	"info": {
+		"_postman_id": "b0a45684-922f-4e39-a683-c0e0b1c322a3",
+		"name": "EGAT_Longbor_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// {\r",
+									"//     \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmOGYxMTYwNGY2MmVhYmQzMzFhNDE3ZSIsInVzZXJuYW1lIjoiYWRtaW4iLCJleHAiOjE2MjY0OTc0MTQsImlhdCI6MTYyNTYzMzQxNH0.7TwRTkit24AN9kRFqb_MnU4CUP_rZ2YvlvF8QOGf_fE\"\r",
+									"// }\r",
+									"// note: JWT Token payload\r",
+									"// payload = {\r",
+									"//   \"id\": \"500000\",\r",
+									"//   \"username\": \"admin\",\r",
+									"//   \"email\": \"admin@admin.com\",\r",
+									"//   \"type\": \"admin\",\r",
+									"//   \"exp\": 1626497414, <-- อายุโทเคน\r",
+									"//   \"iat\": 1625633414\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/auth/login",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Summary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_time",
+									"value": "2021-08-02 00:00:00",
+									"type": "text"
+								},
+								{
+									"key": "stop_time",
+									"value": "2021-08-02 23:59:59",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/dashboard/summary",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Summary Assambly",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_time",
+									"value": "2021-08-02 00:00:00",
+									"type": "text"
+								},
+								{
+									"key": "stop_time",
+									"value": "2021-08-02 23:59:59",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/dashboard/summaryassambly",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"summaryassambly"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List_person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_time",
+									"value": "2021-08-02 00:00:00",
+									"type": "text"
+								},
+								{
+									"key": "stop_time",
+									"value": "2021-08-02 23:59:59",
+									"type": "text"
+								},
+								{
+									"key": "entrance_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "สม",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "สาย",
+									"type": "text"
+								},
+								{
+									"key": "company_id",
+									"value": "183",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "ACCESS_GRANTED",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "PERMISSION_DENIED",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "CARD_EXPIRED",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "INVALID_CHANNEL_TYPE",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "CARD_NOT_ACTIVATED",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"description": "DESC = น้อยไปมาก, ASC = มากไปน้อย",
+									"type": "text"
+								},
+								{
+									"key": "sort_type",
+									"value": "card_type",
+									"description": "    // time\n    // entrace_name\n    // card_id\n    // name\n    // card_type",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/dashboard/list/person",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"list",
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List_assamblypoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_time",
+									"value": "2021-08-02 00:00:00",
+									"type": "text"
+								},
+								{
+									"key": "stop_time",
+									"value": "2021-08-02 23:59:59",
+									"type": "text"
+								},
+								{
+									"key": "entrance_id",
+									"value": "5",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "company_id",
+									"value": "183",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1000000",
+									"type": "text"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "DESC",
+									"description": "DESC = น้อยไปมาก, ASC = มากไปน้อย",
+									"type": "text"
+								},
+								{
+									"key": "sort_type",
+									"value": "id",
+									"description": "access_time, firstname, id, card_type_desc, enchance_name",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/dashboard/list/assamblypoint",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"list",
+								"assamblypoint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List_car",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_time",
+									"value": "2021-08-02 00:00:00",
+									"type": "text"
+								},
+								{
+									"key": "stop_time",
+									"value": "2021-08-02 23:59:59",
+									"type": "text"
+								},
+								{
+									"key": "entrance_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "license_plate",
+									"value": "74",
+									"type": "text"
+								},
+								{
+									"key": "province_name",
+									"value": "น",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "company_id",
+									"value": "183",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "sort",
+									"value": "ASC",
+									"description": "DESC = น้อยไปมาก, ASC = มากไปน้อย",
+									"type": "text"
+								},
+								{
+									"key": "sort_type",
+									"value": "card_id",
+									"description": "time,\nentrace_name,\ncard_id,",
+									"type": "text"
+								},
+								{
+									"key": "ACCESS_GRANTED",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "PERMISSION_DENIED",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "CARD_EXPIRED",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "INVALID_CHANNEL_TYPE",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "CARD_NOT_ACTIVATED",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "province_id",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/dashboard/list/car",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"list",
+								"car"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Device",
+			"item": [
+				{
+					"name": "Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/device",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"device"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "start_time",
+									"value": "2021-07-28",
+									"type": "text"
+								},
+								{
+									"key": "stop_time",
+									"value": "2021-07-30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/report",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"report"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manage Human Card",
+			"item": [
+				{
+					"name": "Human_Card",
+					"item": [
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\": \"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "idcard",
+											"value": "1234567893219",
+											"type": "text"
+										},
+										{
+											"key": "name_title",
+											"value": "นาย",
+											"type": "text"
+										},
+										{
+											"key": "firstname",
+											"value": "บัณฑิต",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "คุ้มสวัสดิ์",
+											"type": "text"
+										},
+										{
+											"key": "birthday",
+											"value": "1998-09-19",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "ชาย",
+											"type": "text"
+										},
+										{
+											"key": "religion",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "house_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "village_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "alley",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "lane",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "road",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "sub_district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "provinces",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "idcard_expired",
+											"value": "2021-07-11",
+											"type": "text"
+										},
+										{
+											"key": "company_id",
+											"value": "13",
+											"type": "text"
+										},
+										{
+											"key": "mine_permit",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "card_id",
+											"value": "202100003",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "card_expired",
+											"value": "2021-07-11",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_work",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "upload_picture",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "card_picture",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "offset",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\": \"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "2835",
+											"type": "text"
+										},
+										{
+											"key": "idcard",
+											"value": "1234567893219",
+											"type": "text"
+										},
+										{
+											"key": "name_title",
+											"value": "นาย",
+											"type": "text"
+										},
+										{
+											"key": "firstname",
+											"value": "บัณฑิต",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "คุ้มสวัสดิ์",
+											"type": "text"
+										},
+										{
+											"key": "birthday",
+											"value": "1998-09-19",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "ชาย",
+											"type": "text"
+										},
+										{
+											"key": "religion",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "house_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "village_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "alley",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "lane",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "road",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "sub_district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "provinces",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "idcard_expired",
+											"value": "2021-07-11",
+											"type": "text"
+										},
+										{
+											"key": "company_id",
+											"value": "13",
+											"type": "text"
+										},
+										{
+											"key": "mine_permit",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "card_id",
+											"value": "202100013",
+											"type": "text"
+										},
+										{
+											"key": "card_expired",
+											"value": "2021-07-13",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_work",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "upload_picture",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "card_picture",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "card_type",
+											"value": "4",
+											"description": "2,3,4,5",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"data\": [\r",
+											"//     {\r",
+											"//       \"id\": \"100000\",\r",
+											"//       \"name\": \"บัณฑิต\",\r",
+											"//       \"surname\": \"คุ้มสวัสดิ์\",\r",
+											"//       \"id_card\": \"45487775445800\",\r",
+											"//       \"company\": \"บ. เดียแวร์ ซิสเต็ม\",\r",
+											"//       \"card_number\": \"202000011\",\r",
+											"//       \"expire\": \"2021-07-06T00:00:00.000+00:00\",\r",
+											"//       \"is_accept_mine\": true,\r",
+											"//       \"is_working\": false,\r",
+											"//     },\r",
+											"//     .\r",
+											"//     .\r",
+											"//     .\r",
+											"//     .\r",
+											"//   ],\r",
+											"//   \"length\": 100\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "uhf_id",
+											"value": "E20000200411013604006936",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "mifare_id",
+											"value": "1BB0762D",
+											"type": "text"
+										},
+										{
+											"key": "id_card",
+											"value": "1212312121001",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "ตัวทดสอบ",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "surname",
+											"value": "ทองน้อย",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "company_id",
+											"value": "183",
+											"description": "string",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_mine",
+											"value": "true",
+											"description": "boolean",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "is_card_number",
+											"value": "true",
+											"description": "boolean",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "is_expire_card",
+											"value": "true",
+											"description": "boolean",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "0",
+											"description": "number",
+											"type": "text"
+										},
+										{
+											"key": "limit",
+											"value": "100000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete_inactive",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"id\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "2881",
+											"description": "number",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card"
+									],
+									"query": [
+										{
+											"key": "id_person",
+											"value": "1154",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Export",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"data\": [\r",
+											"//     {\r",
+											"//       \"id\": \"100000\",\r",
+											"//       \"name\": \"บัณฑิต\",\r",
+											"//       \"surname\": \"คุ้มสวัสดิ์\",\r",
+											"//       \"id_card\": \"45487775445800\",\r",
+											"//       \"company\": \"บ. เดียแวร์ ซิสเต็ม\",\r",
+											"//       \"card_number\": \"202000011\",\r",
+											"//       \"expire\": \"2021-07-06T00:00:00.000+00:00\",\r",
+											"//       \"is_accept_mine\": true,\r",
+											"//       \"is_working\": false,\r",
+											"//     },\r",
+											"//     .\r",
+											"//     .\r",
+											"//     .\r",
+											"//     .\r",
+											"//   ],\r",
+											"//   \"length\": 6\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "[2876,2878,2879]",
+											"description": "Json array of id []",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card/export",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card",
+										"export"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Missing_Card",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "UNLINK",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "3",
+											"description": "number",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card/card/missing",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card",
+										"card",
+										"missing"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Return_Card",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "UNLINK",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "3",
+											"description": "number",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card/card/return",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card",
+										"card",
+										"return"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Link Card",
+							"request": {
+								"method": "LINK",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "person_id",
+											"value": "2925",
+											"type": "text"
+										},
+										{
+											"key": "card_id",
+											"value": "202100033",
+											"type": "text"
+										},
+										{
+											"key": "uhf_id",
+											"value": "EC000000000000000001",
+											"type": "text"
+										},
+										{
+											"key": "mifare_id",
+											"value": "1BB07587",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/person_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"person_card"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Temporary_Card",
+					"item": [
+						{
+							"name": "Add_bk",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\": \"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "company_name",
+											"value": "บ. เดียแวร์ ซิสเต็ม",
+											"contentType": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_type",
+											"value": "mifare",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_number",
+											"value": "14588875496550",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_expire",
+											"value": "2041-07-06T00:00:00.000+00:00",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_status",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_work",
+											"value": "false",
+											"description": "Boolean",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_mine",
+											"value": "false",
+											"description": "Boolean",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"description": "file .jpg, .png (ยังไม่แน่ใจว่าข้อมูลรูปในการ์ดเป็นอะไร)",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "title",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "surname",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "id_card",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "expire_card",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "date_bird",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "religious",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "house_number",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "village_number",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "road",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "sub_district",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "district",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "province",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\": \"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "2835",
+											"type": "text"
+										},
+										{
+											"key": "idcard",
+											"value": "1234567893219",
+											"type": "text"
+										},
+										{
+											"key": "name_title",
+											"value": "นาย",
+											"type": "text"
+										},
+										{
+											"key": "firstname",
+											"value": "บัณฑิต",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "คุ้มสวัสดิ์",
+											"type": "text"
+										},
+										{
+											"key": "birthday",
+											"value": "1998-09-19",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "ชาย",
+											"type": "text"
+										},
+										{
+											"key": "religion",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "house_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "village_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "alley",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "lane",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "road",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "sub_district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "provinces",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "idcard_expired",
+											"value": "2021-07-11",
+											"type": "text"
+										},
+										{
+											"key": "company_id",
+											"value": "13",
+											"type": "text"
+										},
+										{
+											"key": "mine_permit",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "card_id",
+											"value": "202100013",
+											"type": "text"
+										},
+										{
+											"key": "card_expired",
+											"value": "2021-07-13",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_work",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "upload_picture",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "card_picture",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "card_type",
+											"value": "4",
+											"description": "2,3,4,5",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Edit_bk",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "100000",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "company_name",
+											"value": "บ. เดียแวร์ ซิสเต็ม",
+											"contentType": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_type",
+											"value": "mifare",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_number",
+											"value": "14588875496550",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_expire",
+											"value": "2041-07-06T00:00:00.000+00:00",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "card_status",
+											"value": "0",
+											"description": "number",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_work",
+											"value": "0",
+											"description": "number",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_mine",
+											"value": "0",
+											"description": "number",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"description": "file .jpg, .png (ยังไม่แน่ใจว่าข้อมูลรูปในการ์ดเป็นอะไร)",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "title",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "surname",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "id_card",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "idcard_expire",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "birthday",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "religious",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "house_number",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "village_number",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "road",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "sub_district",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "district",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "province",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "alley",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										},
+										{
+											"key": "lane",
+											"value": "",
+											"description": "String",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\": \"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "idcard",
+											"value": "1234567893219",
+											"type": "text"
+										},
+										{
+											"key": "name_title",
+											"value": "นาย",
+											"type": "text"
+										},
+										{
+											"key": "firstname",
+											"value": "บัณฑิต",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "คุ้มสวัสดิ์",
+											"type": "text"
+										},
+										{
+											"key": "birthday",
+											"value": "1998-09-19",
+											"type": "text"
+										},
+										{
+											"key": "sex",
+											"value": "ชาย",
+											"type": "text"
+										},
+										{
+											"key": "religion",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "house_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "village_no",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "alley",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "lane",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "road",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "sub_district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "district",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "provinces",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "idcard_expired",
+											"value": "2021-07-11",
+											"type": "text"
+										},
+										{
+											"key": "company_id",
+											"value": "13",
+											"type": "text"
+										},
+										{
+											"key": "mine_permit",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "card_id",
+											"value": "202100003",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "card_expired",
+											"value": "2021-07-11",
+											"type": "text"
+										},
+										{
+											"key": "is_accept_work",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "upload_picture",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "card_picture",
+											"value": "xxxx",
+											"type": "text"
+										},
+										{
+											"key": "offset",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"data\": [\r",
+											"//     {\r",
+											"//       \"id\": \"100000\",\r",
+											"//       \"name\": \"บัณฑิต\",\r",
+											"//       \"surname\": \"คุ้มสวัสดิ์\",\r",
+											"//       \"id_card\": \"45487775445800\",\r",
+											"//       \"company\": \"บ. เดียแวร์ ซิสเต็ม\",\r",
+											"//       \"card_number\": \"202000011\",\r",
+											"//       \"expire\": \"2021-07-06T00:00:00.000+00:00\",\r",
+											"//       \"is_accept_mine\": true,\r",
+											"//       \"is_working\": false,\r",
+											"//     },\r",
+											"//     .\r",
+											"//     .\r",
+											"//     .\r",
+											"//     .\r",
+											"//   ],\r",
+											"//   \"length\": 100\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "uhf_id",
+											"value": "E20000200411013604006934",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "mifare_id",
+											"value": "1BB8913C",
+											"type": "text"
+										},
+										{
+											"key": "id_card",
+											"value": "1103700790284",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "name",
+											"value": "บัณฑิต",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "surname",
+											"value": "คุ้มสวัสดิ์",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "card_type",
+											"value": "0",
+											"description": "string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "is_card_number",
+											"value": "true",
+											"description": "boolean",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "is_accept_mine",
+											"value": "true",
+											"description": "boolean",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "offset",
+											"value": "0",
+											"description": "number",
+											"type": "text"
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"description": "number",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Export",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\": \"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "card_length",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card/export",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card",
+										"export"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete_inactive",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"id\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "100000",
+											"description": "number",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									],
+									"query": [
+										{
+											"key": "id_person",
+											"value": "1154",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Return_Card",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// response:\r",
+											"// Status: 2xx:\r",
+											"// {\r",
+											"//   \"success\": true\r",
+											"// }\r",
+											"\r",
+											"// Status: 4xx\r",
+											"// {\r",
+											"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+											"// }\r",
+											"\r",
+											"// Status: 5xx\r",
+											"// {\r",
+											"//   \"message\":\"\"\r",
+											"// }"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "UNLINK",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_person",
+											"value": "100000",
+											"description": "number",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card/card/return",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card",
+										"card",
+										"return"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Link Card",
+							"request": {
+								"method": "LINK",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "person_id",
+											"value": "2925",
+											"type": "text"
+										},
+										{
+											"key": "card_id",
+											"value": "202100033",
+											"type": "text"
+										},
+										{
+											"key": "uhf_id",
+											"value": "EC000000000000000001",
+											"type": "text"
+										},
+										{
+											"key": "mifare_id",
+											"value": "1BB07587",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/managepersoncard/temporary_card",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"managepersoncard",
+										"temporary_card"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Registor Card [add]",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"mifare_id\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "card_id",
+									"value": "2021A99990",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "uhf_id",
+									"value": "E2000003334343434343",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "mifare_id",
+									"value": "445558844",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/registor_card",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"registor_card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registor Card [edit]",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"mifare_id\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "card_id",
+									"value": "2021A99990",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "uhf_id",
+									"value": "E200000333434343",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "mifare_id",
+									"value": "445558844",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/registor_card",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"registor_card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registor Card [delete]",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"mifare_id\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "card_id",
+									"value": "2021A99990",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/registor_card",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"registor_card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Company",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"data\": [\r",
+									"//     {\r",
+									"//       \"id\": \"300000\",\r",
+									"//       \"name\": \"บ. เดียวแวร์ ซิสเต็ม\",\r",
+									"//     },\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//   ],\r",
+									"//   \"length\": 30\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/company",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Faction_inactive",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"data\": [\r",
+									"//     {\r",
+									"//         \"id\": \"S11106L\",\r",
+									"//         \"name\": \"แผนกงานบุคคลเหมืองแม่เมาะ\",\r",
+									"//     },\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//   ],\r",
+									"//   \"length\": 30\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/faction",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"faction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Contract",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"data\": [\r",
+									"//     {\r",
+									"//       \"id\": \"400000\",\r",
+									"//       \"company_name\": \"บ. เดียวแวร์ ซิสเต็ม\",\r",
+									"//       \"contract_number\": \"111111155555444888888\",\r",
+									"//       \"contract_name\": \"รับเหมาขุดแร่ oridecon\",\r",
+									"//       \"contract_start\": \"2021-01-01T00:00:00.000+00:00\",\r",
+									"//       \"contract_end\": \"2021-12-30T00:00:00.000+00:00\",\r",
+									"//     },\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//   ],\r",
+									"//   \"length\": 30\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_company",
+									"value": "300000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/contract",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"contract"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Card Type",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"data\": [\r",
+									"//     {\r",
+									"//       \"id\": \"400000\",\r",
+									"//       \"type\": \"ยังไม่เปิดใช้งาน\"\r",
+									"//     },    {\r",
+									"//       \"id\": \"400001\",\r",
+									"//       \"type\": \"พนักงาน EGAT\"\r",
+									"//     },\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//   ],\r",
+									"//   \"length\": 30\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/cardtype",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"cardtype"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Person Card Status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"// \"data\": [\r",
+									"//     {\r",
+									"//         \"id\": 0,\r",
+									"//         \"desc\": \"ไม่มีบัตร\",\r",
+									"//     }, {\r",
+									"//         \"id\": 1,\r",
+									"//         \"desc\": \"กำลังพิมพ์บัตร\",\r",
+									"//     }, {\r",
+									"//         \"id\": 2,\r",
+									"//         \"desc\": \"บัตรพร้อมใช้\",\r",
+									"//     }, {\r",
+									"//         \"id\": 3,\r",
+									"//         \"desc\": \"คืนบัตรแล้ว\",\r",
+									"//     }, {\r",
+									"//         \"id\": 4,\r",
+									"//         \"desc\": \"บัตรหมดอายุ\",\r",
+									"//     }, {\r",
+									"//         \"id\": 5,\r",
+									"//         \"desc\": \"ไม่อนุญาตทำงาน\",\r",
+									"//     }\r",
+									"// ]\r",
+									"//   \"length\": 3\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/cardstatus",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"cardstatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Province",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"// \"data\": [\r",
+									"//     {\r",
+									"//         \"id\": 0,\r",
+									"//         \"name\": \"กรุงเทพฯ\",\r",
+									"//     }, {\r",
+									"//         \"id\": 1,\r",
+									"//         \"name\": \"นครปฐม\",\r",
+									"//     }\r",
+									"// ]\r",
+									"//   \"length\": 74\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managepersoncard/province",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managepersoncard",
+								"province"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manage RFID Card",
+			"item": [
+				{
+					"name": "Find",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"data\": [\r",
+									"//     {\r",
+									"//       \"id\": \"100000\",\r",
+									"//       \"card_number\": \"45487775445800\",\r",
+									"//       \"car_number\": \"45487775445800\",\r",
+									"//       \"id_card\": \"45487775445800\",\r",
+									"//       \"mifare_id\": \"\",\r",
+									"//       \"uhf_id\": \"\",\r",
+									"//       \"card_type\": \"\",\r",
+									"//       \"card_status\": \"active\",\r",
+									"//     },\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//   ],\r",
+									"//   \"length\": 100\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"card_type\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "uhf_id",
+									"value": "E20000200411013604006942",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "mifare_id",
+									"value": "1BB07626",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "id_card",
+									"value": "1234567893215",
+									"description": "string",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "license",
+									"value": "งง 1007",
+									"description": "string",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "card_type",
+									"value": "person_all",
+									"description": "1,2,3,4,5,101,102,103,vehicle_all, person_all",
+									"type": "text"
+								},
+								{
+									"key": "status_active",
+									"value": "true",
+									"description": "boolean",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "status_loss",
+									"value": "true",
+									"description": "boolean",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "status_idle",
+									"value": "true",
+									"description": "boolean",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "number",
+									"type": "text"
+								},
+								{
+									"key": "limit",
+									"value": "999999",
+									"description": "number",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managerfidcard",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managerfidcard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\": \"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_card",
+									"value": "14588875496550",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "car_number",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "car_number",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "id_card",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "card_type",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "card_status",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managerfidcard",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managerfidcard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\": \"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "car_number",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "car_number",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "id_card",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "card_type",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "card_status",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/managerfidcard",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"managerfidcard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "Find",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"data\": [\r",
+									"//     {\r",
+									"//       \"id\": \"100000\",\r",
+									"//       \"card_number\": \"45487775445800\",\r",
+									"//       \"car_number\": \"45487775445800\",\r",
+									"//       \"id_card\": \"45487775445800\",\r",
+									"//       \"mifare_id\": \"\",\r",
+									"//       \"uhf_id\": \"\",\r",
+									"//       \"card_type\": \"\",\r",
+									"//       \"card_status\": \"active\",\r",
+									"//     },\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//     .\r",
+									"//   ],\r",
+									"//   \"length\": 100\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"card_type\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "uhf_id",
+									"value": "E20000200411013604006942",
+									"type": "text"
+								},
+								{
+									"key": "mifare_id",
+									"value": "1BB07626",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "card_id",
+									"value": "202100010",
+									"description": "string",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "license",
+									"value": "งง 1007",
+									"description": "string",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "company_id",
+									"value": "183",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "is_card_number",
+									"value": "true",
+									"description": "boolean",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "is_expire_card",
+									"value": "true",
+									"description": "boolean",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "is_accept_mine",
+									"value": "true",
+									"description": "boolean",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "number",
+									"type": "text"
+								},
+								{
+									"key": "limit",
+									"value": "999999",
+									"description": "number",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/vehicle",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\": \"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_card",
+									"value": "14588875496550",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "car_number",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "car_number",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "id_card",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "card_type",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "card_status",
+									"value": "",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/vehicle",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"is_accept_mine\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\": \"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "company_id",
+									"value": "183",
+									"type": "text"
+								},
+								{
+									"key": "card_expired",
+									"value": "2021-07-11",
+									"type": "text"
+								},
+								{
+									"key": "mine_permit",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "license",
+									"value": "งง 1547",
+									"type": "text"
+								},
+								{
+									"key": "province_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "brand_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "type_Id",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "remark",
+									"value": "รถเข้าเหมืองขุดแร่",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/vehicle",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// response:\r",
+									"// Status: 2xx:\r",
+									"// {\r",
+									"//   \"success\": true\r",
+									"// }\r",
+									"\r",
+									"// Status: 4xx\r",
+									"// {\r",
+									"//   \"message\":\"invalid field \\\"mifare_id\\\" is String\"\r",
+									"// }\r",
+									"\r",
+									"// Status: 5xx\r",
+									"// {\r",
+									"//   \"message\":\"\"\r",
+									"// }"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "card_id",
+									"value": "2021A99990",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/vehicle",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image api",
+			"item": [
+				{
+					"name": "image",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/pimage?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTYyNzgwMTQ2OSwiaWF0IjoxNjI2OTM3NDY5fQ.K9ZwOG-EcEikLnw27Zt2iCUmZk6r99TFW56bWLkxc84&date=2020-01-29 11:30:22&idcard=1234567891230",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"pimage"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTYyNzgwMTQ2OSwiaWF0IjoxNjI2OTM3NDY5fQ.K9ZwOG-EcEikLnw27Zt2iCUmZk6r99TFW56bWLkxc84"
+								},
+								{
+									"key": "date",
+									"value": "2020-01-29 11:30:22"
+								},
+								{
+									"key": "idcard",
+									"value": "1234567891230"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ListCard",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{protocol}}{{host}}/api/listcard",
+					"host": [
+						"{{protocol}}{{host}}"
+					],
+					"path": [
+						"api",
+						"listcard"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTYyODc1MTUzMiwiaWF0IjoxNjI3ODg3NTMyfQ.KksrcLAN0J1jDKCkQqQlLfG6GXCnxdFWCgGheInJb3o",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "protocol",
+			"value": "https://"
+		},
+		{
+			"key": "protocol",
+			"value": "http://",
+			"disabled": true
+		},
+		{
+			"key": "host",
+			"value": "127.0.0.1:11110"
+		},
+		{
+			"key": "host",
+			"value": "dwdev.info"
+		},
+		{
+			"key": "host",
+			"value": "10.249.111.247",
+			"disabled": true
+		}
+	]
+}

@@ -1,0 +1,69 @@
+SELECT  (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+    
+    LEFT JOIN person as ps
+    ON ps.id = acl.person_id
+    
+    WHERE acl.access_type = 1 AND acl.access_direction = 0 AND acl.person_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+    
+    GROUP BY acl.person_id
+
+  ) AS SUB_COUNT_PERSON_IN
+
+) AS total_person_in, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+    
+    LEFT JOIN person as ps
+    ON ps.id = acl.person_id
+    
+    WHERE acl.access_type = 1 AND acl.access_direction = 1 AND acl.person_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59'
+    
+    GROUP BY acl.person_id
+
+  ) AS SUB_COUNT_PERSON_OUT
+
+) AS total_person_out, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+
+    LEFT JOIN vehicle as vh
+    ON vh.id = acl.vehicle_id
+    
+    WHERE acl.access_type = 2 AND acl.access_direction = 0 AND acl.vehicle_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59' 
+    
+    GROUP BY acl.vehicle_id
+
+  ) AS SUB_COUNT_VEHICLE_IN
+
+) AS total_vehicle_in, (
+
+  SELECT COUNT(*)  FROM (
+
+    SELECT COUNT(*)
+    FROM access_log as acl
+
+    LEFT JOIN vehicle as vh
+    ON vh.id = acl.vehicle_id
+    
+    WHERE acl.access_type = 2 AND acl.access_direction = 1 AND acl.vehicle_id IS NOT NULL AND
+    acl.access_time BETWEEN '2021-07-13 00:00:00' AND '2021-07-13 23:59:59' 
+    
+    GROUP BY acl.vehicle_id
+
+  ) AS SUB_COUNT_VEHICLE_OUT
+
+) AS total_vehicle_out

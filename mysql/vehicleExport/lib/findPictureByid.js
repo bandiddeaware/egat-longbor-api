@@ -1,0 +1,50 @@
+var mysql = require('../../connection')
+
+const FindMultipleID = async (
+  multiple_id
+) => {
+  const conn = await mysql.connection()
+  try {
+    var query = `
+      SELECT
+        vh.id AS vehicle_id,
+        vh.*,
+        card.*,
+        vhb.*,
+        vht.*,
+        vh.card_id as card_id,
+        IF(vh.image IS NULL OR vh.image = "", CONCAT(vh.id, ".jpg"), vh.image) as picture
+      FROM vehicle AS vh
+      
+      LEFT JOIN company AS cp
+        ON vh.company_id = cp.id
+      
+      LEFT JOIN card as card
+        ON vh.card_id = card.id
+      
+      LEFT JOIN vehicle_brand AS vhb
+        ON vh.brand_id = vhb.id
+      
+      LEFT JOIN vehicle_type AS vht
+        ON vh.type_id = vht.id
+      
+      WHERE vh.id IN ${multiple_id} AND (card.type = 0 AND card.status = 0 OR vh.card_id IS NULL) 
+    `
+    const [rows] = await conn.query(query)
+    conn.end();
+    return {
+      isError: false,
+      data: rows,
+    }
+  }catch(e) {
+    conn.end();
+    return {
+      isError: true,
+      data: e
+    }
+  }
+}
+
+module.exports = {
+  FindMultipleID
+};
