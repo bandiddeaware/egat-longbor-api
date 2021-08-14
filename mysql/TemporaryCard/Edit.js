@@ -29,6 +29,31 @@ const check_company_id = async (company_id, conn) => {
   }
 }
 
+const check_contact = async (contract_num, contract_start_date, contract_end_date, conn) => {
+  // insert and find id
+  var name = contract_num
+  if (name !== undefined){
+    var query = `
+      INSERT INTO contract SET    
+        number = "${name}"
+        ${(contract_start_date !== undefined ? ",start_date='" +contract_start_date+"'" : "")}
+        ${(contract_end_date !== undefined ? ",end_date='" +contract_end_date+"'" : "")}
+    `
+    const [check_contract_dup] = await conn.query(`SELECT COUNT(*) AS count FROM contract WHERE number LIKE "${name}"`)
+    if (check_contract_dup[0].count > 0){
+      return {
+        status: true,
+        contract_num: name
+      }
+    }
+    const [rows] = await conn.query(query)
+    return {
+      status: true,
+      contract_num: name
+    }
+  }
+}
+
 const Edit = async (
   person_id,
   idcard, 
@@ -54,7 +79,10 @@ const Edit = async (
   card_id, 
   card_expired, 
   card_status,
-  card_type
+  card_type,
+  contract_num,
+  contract_start_date,
+  contract_end_date,
 ) => {
   const conn = await mysql.connection()
   try {
@@ -70,6 +98,17 @@ const Edit = async (
       company_id = company_id.company_id
     }
 
+    // check contract
+    contract_num = await check_contact(contract_num, contract_start_date, contract_end_date, conn)
+    if (contract_num.status === false){
+      return {
+        isError: true,
+        data: "contract is duplicate."
+      }
+    } else {
+      contract_num = contract_num.contract_num
+    }
+    
     var query = `
       UPDATE person SET    
         idcard =  '${idcard}', 
@@ -92,6 +131,8 @@ const Edit = async (
         ${( picture === undefined || picture === "undefined" ? `` : `picture =  '${picture}',` )}
         ${( card_expired === undefined || card_expired === "undefined" ? `` : `card_expired =  '${card_expired}', ` )}
 
+        ${(contract_num === undefined ? "": `contract_num = "${contract_num}",`)}
+        
         company_id =  '${company_id}', 
         modified_at =  '${modified_at}', 
         mine_permit =  '${mine_permit}', 

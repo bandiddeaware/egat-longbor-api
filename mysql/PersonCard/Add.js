@@ -29,6 +29,31 @@ const check_company_id = async (company_id, conn) => {
   }
 }
 
+const check_contact = async (contract_num, contract_start_date, contract_end_date, conn) => {
+  // insert and find id
+  var name = contract_num
+  if (name !== undefined){
+    var query = `
+      INSERT INTO contract SET    
+        number = "${name}"
+        ${(contract_start_date !== undefined ? ",start_date='" +contract_start_date+"'" : "")}
+        ${(contract_end_date !== undefined ? ",end_date='" +contract_end_date+"'" : "")}
+    `
+    const [check_contract_dup] = await conn.query(`SELECT COUNT(*) AS count FROM contract WHERE number LIKE "${name}"`)
+    if (check_contract_dup[0].count > 0){
+      return {
+        status: true,
+        contract_num: name
+      }
+    }
+    const [rows] = await conn.query(query)
+    return {
+      status: true,
+      contract_num: name
+    }
+  }
+}
+
 const Add = async (
   idcard, 
   name_title, 
@@ -53,13 +78,15 @@ const Add = async (
   mine_permit, 
   card_id, 
   card_expired, 
-  card_status
+  card_status,
+  contract_num,
+  contract_start_date,
+  contract_end_date,
 ) => {
   const conn = await mysql.connection()
   try {
-
+    // check company
     company_id = await check_company_id(company_id, conn)
-
     if (company_id.status === false){
       return {
         isError: true,
@@ -67,6 +94,17 @@ const Add = async (
       }
     } else {
       company_id = company_id.company_id
+    }
+
+    // check contract
+    contract_num = await check_contact(contract_num, contract_start_date, contract_end_date, conn)
+    if (contract_num.status === false){
+      return {
+        isError: true,
+        data: "contract is duplicate."
+      }
+    } else {
+      contract_num = contract_num.contract_num
     }
 
     var query = `
@@ -91,13 +129,15 @@ const Add = async (
       ${( picture === undefined || picture === "undefined" ? `` : `picture =  '${picture}',` )}
       ${( card_expired === undefined || card_expired === "undefined" || card_expired === "" ? `` : `card_expired =  '${card_expired}', ` )}
 
+      ${(contract_num === undefined ? "": `contract_num = "${contract_num}",`)}
+
       company_id =  '${company_id}', 
       created_at =  '${created_at}', 
       modified_at =  '${modified_at}', 
       mine_permit =  '${mine_permit}', 
       
       ${( card_id === undefined ? `` : `card_id =  '${card_id}',` )}
-
+      
       card_status =  '${card_status}'
     `
     const [rows] = await conn.query(query)

@@ -11,7 +11,7 @@ router.use("/", require("./image"))
 router.use("/", require("./postman"))
 router.use("/", require("./vehicle"))
 router.use("/", require("./list_faction"))
-
+router.use("/", require("./list_contract"))
 // for test
 // router.use("/", require("./test_zip"))
 

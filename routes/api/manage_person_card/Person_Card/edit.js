@@ -63,6 +63,23 @@ router.patch('/', auth.required, async function(req, res, next) {
     return res.status(400).json({errors: {message: "is_accept_work can't be undefined"}});
   }
 
+  if (req.body.contract_num === "undefined" || req.body.contract_num === "null" || req.body.contract_num === "NULL"){
+
+    // if (req.body.contract_start_date === undefined || req.body.contract_start_date === "undefined" || req.body.contract_start_date === "null" || req.body.contract_start_date === "NULL"){
+    //   return res.status(400).json({errors: {message: "contract_start_date can't be undefined, null and NULL"}});
+    // }
+    // if (req.body.contract_end_date === undefined || req.body.contract_end_date === "undefined" || req.body.contract_end_date === "null" || req.body.contract_end_date === "NULL"){
+    //   return res.status(400).json({errors: {message: "contract_end_date can't be undefined, null and NULL"}});
+    // }
+
+    return res.status(400).json({errors: {message: "contract_num can't be undefined, null and NULL"}});
+  }
+  if (req.body.contract_start_date === "undefined" || req.body.contract_start_date === "null" || req.body.contract_start_date === "NULL"){
+    return res.status(400).json({errors: {message: "contract_start_date can't be undefined, null and NULL"}});
+  }
+  if (req.body.contract_end_date === "undefined" || req.body.contract_end_date === "null" || req.body.contract_end_date === "NULL"){
+    return res.status(400).json({errors: {message: "contract_end_date can't be undefined, null and NULL"}});
+  }
 
   // if (!req.body.card_id){
   //   return res.status(400).json({errors: {message: "card_id can't be blank"}});
@@ -95,7 +112,10 @@ router.patch('/', auth.required, async function(req, res, next) {
     req.body.card_id, 
     req.body.card_expired, 
     (req.body.is_accept_work === "true" ? 6: 5),
-    req.body.card_type
+    req.body.card_type,
+    req.body.contract_num,
+    req.body.contract_start_date,
+    req.body.contract_end_date,
   )
   if (result_query.isError === false){
     if (req.file !== undefined){
