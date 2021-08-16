@@ -50,14 +50,14 @@ router.put('/', auth.required, async function(req, res, next) {
   }
 
   // validation contract
-  if (req.body.contract_num === undefined || req.body.contract_num === "undefined" || req.body.contract_num === "null" || req.body.contract_num === "NULL"){
-    // return res.status(400).json({errors: {message: "contract_num can't be undefined, null and NULL"}});
+  if (req.body.contract_number === undefined || req.body.contract_number === "undefined" || req.body.contract_number === "null" || req.body.contract_number === "NULL"){
+    // return res.status(400).json({errors: {message: "contract_number can't be undefined, null and NULL"}});
   }else {
-    if (req.body.contract_start_date === undefined || req.body.contract_start_date === "undefined" || req.body.contract_start_date === "null" || req.body.contract_start_date === "NULL"){
-      return res.status(400).json({errors: {message: "contract_start_date can't be undefined, null and NULL"}});
+    if (req.body.contract_start === undefined || req.body.contract_start === "undefined" || req.body.contract_start === "null" || req.body.contract_start === "NULL"){
+      return res.status(400).json({errors: {message: "contract_start can't be undefined, null and NULL"}});
     }
-    if (req.body.contract_end_date === undefined || req.body.contract_end_date === "undefined" || req.body.contract_end_date === "null" || req.body.contract_end_date === "NULL"){
-      return res.status(400).json({errors: {message: "contract_end_date can't be undefined, null and NULL"}});
+    if (req.body.contract_end === undefined || req.body.contract_end === "undefined" || req.body.contract_end === "null" || req.body.contract_end === "NULL"){
+      return res.status(400).json({errors: {message: "contract_end can't be undefined, null and NULL"}});
     }
   }
 
@@ -93,9 +93,9 @@ router.put('/', auth.required, async function(req, res, next) {
     req.body.card_id, 
     req.body.card_expired, 
     6, // accetp work
-    req.body.contract_num,
-    req.body.contract_start_date,
-    req.body.contract_end_date,
+    req.body.contract_number,
+    req.body.contract_start,
+    req.body.contract_end,
   )
   if (result_query.isError === false){
     if (req.file !== undefined){
