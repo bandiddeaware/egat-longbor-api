@@ -65,7 +65,7 @@ router.put('/', auth.required, async function(req, res, next) {
   }
 
   // validation contract
-  if (req.body.contract_num === "undefined" || req.body.contract_num === "null" || req.body.contract_num === "NULL"){
+  if (req.body.contract_num === undefined || req.body.contract_num === "undefined" || req.body.contract_num === "null" || req.body.contract_num === "NULL"){
     // return res.status(400).json({errors: {message: "contract_num can't be undefined, null and NULL"}});
   }else {
     if (req.body.contract_start_date === undefined || req.body.contract_start_date === "undefined" || req.body.contract_start_date === "null" || req.body.contract_start_date === "NULL"){
@@ -74,13 +74,6 @@ router.put('/', auth.required, async function(req, res, next) {
     if (req.body.contract_end_date === undefined || req.body.contract_end_date === "undefined" || req.body.contract_end_date === "null" || req.body.contract_end_date === "NULL"){
       return res.status(400).json({errors: {message: "contract_end_date can't be undefined, null and NULL"}});
     }
-  }
-
-  if (req.body.contract_start_date === "undefined" || req.body.contract_start_date === "null" || req.body.contract_start_date === "NULL"){
-    return res.status(400).json({errors: {message: "contract_start_date can't be undefined, null and NULL"}});
-  }
-  if (req.body.contract_end_date === "undefined" || req.body.contract_end_date === "null" || req.body.contract_end_date === "NULL"){
-    return res.status(400).json({errors: {message: "contract_end_date can't be undefined, null and NULL"}});
   }
 
   // if (!req.body.card_id){
