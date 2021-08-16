@@ -67,6 +67,7 @@ const Find = async (
             card.mifare_id LIKE "%${mifare_id}%" AND card.type = ${card_type} AND (card.type <> 1 OR ps.card_id IS NULL)
           `
         }
+        return `card.type = ${card_type} AND (card.type <> 1 OR ps.card_id IS NULL)`
       }else {
         if (name !== undefined && surname !== undefined){
           return `
