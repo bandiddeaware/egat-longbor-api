@@ -14,6 +14,16 @@ const Find = async (
 ) => {
   const conn = await mysql.connection()
   try {
+    console.log(  card_id,
+      license,
+      uhf_id,
+      mifare_id,
+      company_name,
+      is_card_number,
+      is_expire_card,
+      is_accept_mine,
+      offset,
+      limit )
     const WhereParameter = (
       card_id,
       license,
@@ -35,22 +45,22 @@ const Find = async (
       if (company_name !== undefined){
         if (license !== undefined){
           return `
-            vh.license_plate = "${license}" AND cm.name LIKE "%${company_name}%" 
+            vh.license_plate LIKE "%${license}%" AND cm.name LIKE "%${company_name}%" 
           `
         }
         if (card_id !== undefined){
           return `
-            card.id = "${card_id}" AND cm.name LIKE "%${company_name}%" 
+            card.id LIKE "%${card_id}%" AND cm.name LIKE "%${company_name}%" 
           `
         }
         if (uhf_id !== undefined){
           return `
-            card.uhf_id = "${uhf_id}" AND cm.name LIKE "%${company_name}%" 
+            card.uhf_id LIKE "%${uhf_id}%" AND cm.name LIKE "%${company_name}%" 
           `
         }
         if (mifare_id !== undefined){
           return `
-            card.mifare_id = "${mifare_id}" AND cm.name LIKE "%${company_name}%" 
+            card.mifare_id LIKE "%${mifare_id}%" AND cm.name LIKE "%${company_name}%" 
           `
         }
         if (
@@ -66,22 +76,22 @@ const Find = async (
       } else {
         if (license !== undefined){
           return `
-            vh.license_plate = "${license}"
+            vh.license_plate LIKE "%${license}%"
           `
         }
         if (card_id !== undefined){
           return `
-            card.id = "${card_id}"
+            card.id LIKE "%${card_id}%"
           `
         }
         if (uhf_id !== undefined){
           return `
-            card.uhf_id = "${uhf_id}"
+            card.uhf_id LIKE "%${uhf_id}%"
           `
         }
         if (mifare_id !== undefined){
           return `
-            card.mifare_id = "${mifare_id}"
+            card.mifare_id LIKE "%${mifare_id}%"
           `
         }
       }
@@ -90,21 +100,21 @@ const Find = async (
       // if (card_id !== undefined && license === undefined){
       //   if (company_name !== undefined){
       //     query = `
-      //       card.id = "${card_id}" AND cm.name LIKE "%${company_name}%" 
+      //       card.id LIKE "%${card_id}%" AND cm.name LIKE "%${company_name}%" 
       //     `
       //   } else {
       //     query = `
-      //       card.id = "${card_id}" 
+      //       card.id LIKE "%${card_id}%" 
       //     `
       //   }
       // } else if (card_id === undefined && license !== undefined){
       //   if (company_name !== undefined){
       //     query = `
-      //       vh.license_plate = "${license}" AND cm.name LIKE "%${company_name}%" 
+      //       vh.license_plate LIKE "%${license}%" AND cm.name LIKE "%${company_name}%" 
       //     `
       //   } else {
       //     query = `
-      //       vh.license_plate = "${license}" 
+      //       vh.license_plate LIKE "%${license}%" 
       //     `
       //   }
       // }else {
@@ -219,6 +229,7 @@ const Find = async (
     
       LIMIT ${limit} OFFSET ${offset}
     `
+    console.log(query_string)
     const [rows] = await conn.query(query_string)
     var query_string = `
       SELECT 
