@@ -138,9 +138,22 @@ const Find = async (
       SELECT 
         ps.id AS person_id,
         ps.*,
-        card.*,
+        
+        card.id AS card_id, 
+        card.uhf_id AS card_uhf_id, 
+        card.mifare_id AS card_mifare_id, 
+        card.type AS card_type,
+        card.status AS card_status, 
+
         ct.*,
-        cp.*
+        cp.*,
+        
+        ps.contract_num AS contract_number,
+
+        cp.name AS company_name,
+        contract.start_date AS contract_start,
+        contract.end_date AS contract_end
+
       FROM person AS ps
 
       LEFT JOIN card AS card
@@ -151,6 +164,9 @@ const Find = async (
 
       LEFT JOIN company AS cp
         ON ps.company_id = cp.id
+
+      LEFT JOIN contract as  contract
+        ON contract.number = ps.contract_num
 
       WHERE 
         ${(WhereParameter(  
