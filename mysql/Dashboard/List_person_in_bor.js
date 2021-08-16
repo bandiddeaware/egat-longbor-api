@@ -1,5 +1,11 @@
 var mysql = require('../connection')
 
+async function find_assambly_point(conn, query) {
+  return Promise.all(query.map(q => {
+    return conn.query(q)
+  }));
+}
+
 const FindPerson = async (
   idcard,
   firstname,
@@ -167,7 +173,24 @@ const FindPerson = async (
       LIMIT ${limit} OFFSET ${offset}
     `
     const [list_person] = await conn.query(query_string_list_person)
+
+    // gen query string
+    var this_person = []
+    list_person.forEach((item, index) => {
+      this_person.push(`SELECT aspl.station_id as station_id FROM assembly_point_log AS aspl WHERE aspl.person_id = "${item.person_id}" ORDER BY aspl.access_time DESC LIMIT 1 OFFSET 0`)
+    })
+
+    // query all promise
+    const result = await find_assambly_point(conn, this_person)
+    // result.forEach(i => console.log("station_id: ", i[0][0].station_id))
     conn.end();
+    list_person.forEach((item, index, arr) => {
+      if (result[index][0].length === 1){
+        list_person[index].station_id = result[index][0][0].station_id
+      }else {
+        list_person[index].station_id = null
+      }
+    })
     return {
       isError: false,
       data: list_person,

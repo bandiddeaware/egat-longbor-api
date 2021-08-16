@@ -7,7 +7,7 @@
     "mongo:start": "docker run --name realworld-mongo -p 27017:27017 mongo & sleep 5",
     "start": "nodemon ./app.js",
     "dev": "nodemon ./app.js",
-    "test": "nodemon ./mysql/Dashboard/Summary.js",
+    "test": "nodemon ./test.js",
     "stop": "lsof -ti :3000 | xargs kill",
     "mongo:stop": "docker stop realworld-mongo && docker rm realworld-mongo"
   },

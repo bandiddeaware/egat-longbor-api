@@ -35,13 +35,7 @@ router.put('/', auth.required, async function(req, res, next) {
   if (!req.body.mine_permit){
     return res.status(400).json({errors: {message: "mine_permit can't be blank"}});
   }
-  if (!req.body.is_accept_work){
-    return res.status(400).json({errors: {message: "is_accept_work can't be blank"}});
-  }
 
-  if (!req.body.idcard){
-    return res.status(400).json({errors: {message: "idcard can't be blank"}});
-  }
   if (req.body.name_title === undefined || req.body.name_title === "undefined"){
     return res.status(400).json({errors: {message: "name_title can't be undefined"}});
   }
