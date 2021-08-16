@@ -51,6 +51,11 @@ const check_contact = async (contract_num, contract_start_date, contract_end_dat
       status: true,
       contract_num: name
     }
+  } else {
+    return {
+      status: true,
+      contract_num: name
+    }
   }
 }
 
