@@ -41,6 +41,14 @@ const check_contact = async (contract_num, contract_start_date, contract_end_dat
     `
     const [check_contract_dup] = await conn.query(`SELECT COUNT(*) AS count FROM contract WHERE number LIKE "${name}"`)
     if (check_contract_dup[0].count > 0){
+      var update = `
+        UPDATE contract SET 
+        ${(contract_start_date !== undefined ? "start_date='" +contract_start_date+"'" : "")}
+        ${(contract_end_date !== undefined ? ",end_date='" +contract_end_date+"'" : "")}
+
+        WHERE number = "${contract_num}"
+      `
+      const [rows_update] = await conn.query(update)
       return {
         status: true,
         contract_num: name
