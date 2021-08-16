@@ -28,13 +28,6 @@ router.patch('/', auth.required, async function(req, res, next) {
   if (!req.body.company_id){
     return res.status(400).json({errors: {message: "company_id can't be blank"}});
   }
-  if (!req.body.mine_permit){
-    return res.status(400).json({errors: {message: "mine_permit can't be blank"}});
-  }
-  if (!req.body.is_accept_work){
-    return res.status(400).json({errors: {message: "is_accept_work can't be blank"}});
-  }
-
   if (!req.body.id_person){
     return res.status(400).json({errors: {message: "id_person can't be blank"}});
   }
@@ -55,12 +48,6 @@ router.patch('/', auth.required, async function(req, res, next) {
   }
   if (req.body.company_id === undefined && req.body.company_id === "undefined"){
     return res.status(400).json({errors: {message: "company_id can't be undefined"}});
-  }
-  if (req.body.mine_permit === undefined && req.body.mine_permit === "undefined"){
-    return res.status(400).json({errors: {message: "mine_permit can't be undefined"}});
-  }
-  if (req.body.is_accept_work === undefined && req.body.is_accept_work === "undefined"){
-    return res.status(400).json({errors: {message: "is_accept_work can't be undefined"}});
   }
 
   // validation contract
@@ -105,7 +92,7 @@ router.patch('/', auth.required, async function(req, res, next) {
     (req.body.mine_permit === "true" ? 1: 0), 
     req.body.card_id, 
     req.body.card_expired, 
-    (req.body.is_accept_work === "true" ? 6: 5),
+    6, // accetp work
     req.body.card_type,
     req.body.contract_num,
     req.body.contract_start_date,
