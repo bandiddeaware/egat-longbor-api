@@ -17,7 +17,8 @@ const FindLog = async (
   offset, 
   limit,
   sort,
-  sort_type
+  sort_type,
+  direction,
 ) => {
   const conn = await mysql.connection()
 
@@ -93,6 +94,9 @@ const FindLog = async (
     if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`); count++; }
     if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4`); count++; }
     if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5 `); count++; }
+
+    if (direction !== undefined) { q_arr.push(`acl.access_direction = ${direction}`); count++; }
+
     if (q_arr.length === 0){
       return ''
     }

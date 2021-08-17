@@ -19,7 +19,8 @@ const FindLog = async (
   offset, 
   limit,
   sort,
-  sort_type
+  sort_type,
+  direction,
 ) => {
   const conn = await mysql.connection()
 
@@ -100,6 +101,8 @@ const FindLog = async (
 
     if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`); count++; }
     if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL`); count++; }
+
+    if (direction !== undefined) { q_arr.push(`acl.access_direction = ${direction}`); count++; }
 
     if (q_arr.length === 0){
       return ''

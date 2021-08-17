@@ -48,6 +48,7 @@ router.post('/list/person', auth.required, async function(req, res, next) {
     req.body.limit,
     req.body.sort,
     req.body.sort_type,
+    req.body.direction,
   )
   if (result.isError === false)
     return res.status(200).json({ data: result.data , length: result.length, status: true})
