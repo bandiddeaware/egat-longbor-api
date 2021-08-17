@@ -11,7 +11,7 @@ router.unlink('/card/missing', auth.required, async function(req, res, next) {
   if (req.body.id_person === undefined || req.body.id_person === "undefined"){
     return res.status(400).json({errors: {message: "id_person can't be undefined"}});
   }
-  const result_query = await returncard(req.body.id_person, 0)
+  const result_query = await returncard(req.body.id_person, -1)
 
   if (result_query.isError === false){
     return res.status(200).json({ result: result_query.data, status: true })
