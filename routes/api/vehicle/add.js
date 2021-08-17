@@ -36,6 +36,26 @@ router.put('/', auth.required, async function(req, res, next) {
     return res.status(400).json({errors: {message: "company_id can't be undefined"}});
   }
 
+  if (req.body.egat_plate === null || req.body.egat_plate === "null" || req.body.egat_plate === "NULL"){
+    return res.status(400).json({errors: {message: "egat_plate is null"}});
+  }
+  if (req.body.faction2_DIV === null || req.body.faction2_DIV === "null" || req.body.faction2_DIV === "NULL"){
+    return res.status(400).json({errors: {message: "faction2_DIV is null"}});
+  }
+  if (req.body.faction2_D_ABBR === null || req.body.faction2_D_ABBR === "null" || req.body.faction2_D_ABBR === "NULL"){
+    return res.status(400).json({errors: {message: "faction2_D_ABBR is null"}});
+  }
+  
+  if (req.body.egat_plate === ""){
+    return res.status(400).json({errors: {message: "egat_plate is empty"}});
+  }
+  if (req.body.faction2_DIV === ""){
+    return res.status(400).json({errors: {message: "faction2_DIV is empty"}});
+  }
+  if (req.body.faction2_D_ABBR === ""){
+    return res.status(400).json({errors: {message: "faction2_D_ABBR is empty"}});
+  }
+
   const result_query = await VehicleAdd(
     req.body.company_id,
     req.body.card_expired,
