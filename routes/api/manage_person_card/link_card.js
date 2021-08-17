@@ -24,14 +24,23 @@ router.link('/link_card', auth.required, async function(req, res, next) {
   }
 
   if (req.body.type === "person"){
-    const result = await registercard.Edit(req.body.card_id, req.body.uhf_id, req.body.mifare_id,)
+    const result = await registercard.Edit(req.body.card_id, req.body.uhf_id, req.body.mifare_id, undefined)
     if (result.isError === false){
       return res.status(200).json({ result: result.data, status: true })
     } else {
       return res.status(500).json( {result: result.data, status: false} )
     } 
   } else {
-    const result = await registercard.Edit(req.body.card_id, req.body.uhf_id, req.body.mifare_id,)
+
+    if (!req.body.person_id){
+      return res.status(400).json({errors: {message: "person_id can't be blank"}});
+    }
+  
+    if (req.body.person_id === undefined || req.body.person_id === "undefined"){
+      return res.status(400).json({errors: {message: "person_id can't be undefined"}});
+    }
+    
+    const result = await registercard.Edit(req.body.card_id, req.body.uhf_id, req.body.mifare_id, req.body.person_id)
     if (result.isError === false){
       return res.status(200).json({ result: result.data, status: true })
     } else {

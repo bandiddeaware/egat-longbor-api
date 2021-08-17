@@ -3,7 +3,8 @@ var mysql = require('../connection')
 const Edit = async (
   card_id,
   uhf,
-  mifare
+  mifare,
+  person_id
 ) => {
   const conn = await mysql.connection()
   const pareseCard = (card_id) => {
@@ -54,6 +55,16 @@ const Edit = async (
       WHERE id = ${card_detail.card_id}
     `
     const [rows] = await conn.query(query)
+
+    if (person_id !== undefined){
+      var update_card_id_person = `
+        UPDATE person SET
+          card_id =  '${card_detail.card_id}'
+        WHERE id = ${person_id}
+      `
+      const [rows_person] = await conn.query(update_card_id_person)
+    }
+
     conn.end();
     return {
       isError: false,
