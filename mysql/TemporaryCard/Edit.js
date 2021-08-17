@@ -149,6 +149,8 @@ const Edit = async (
         company_id =  '${company_id}', 
         modified_at =  '${modified_at}', 
 
+        card_status =  0, 
+
         mine_permit =  '${mine_permit}'
 
       WHERE id = ${person_id};

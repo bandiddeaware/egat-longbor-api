@@ -148,6 +148,8 @@ const Add = async (
       created_at =  '${created_at}', 
       modified_at =  '${modified_at}',  
       
+      card_status =  0, 
+
       mine_permit =  '${mine_permit}'
     `
     const [rows] = await conn.query(query)
