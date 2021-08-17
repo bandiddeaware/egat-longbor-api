@@ -101,7 +101,7 @@ router.put('/', auth.required, async function(req, res, next) {
     req.body.company_id,     
     parseDateTime(new Date()), 
     parseDateTime(new Date()), 
-    (req.body.mine_permit === "true" ? 1: 0), 
+    req.body.mine_permit,
     req.body.card_id, 
     req.body.card_expired, 
     (req.body.is_accept_work === "true" ? 6: 5),

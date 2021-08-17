@@ -148,11 +148,8 @@ const Add = async (
       company_id =  '${company_id}', 
       created_at =  '${created_at}', 
       modified_at =  '${modified_at}', 
-      mine_permit =  '${mine_permit}', 
-      
-      ${( card_id === undefined || card_id === "undefined" ? `` : `card_id =  '${card_id}',` )}
-
-      card_status =  '${card_status}'
+  
+      mine_permit =  '${mine_permit}'
     `
     const [rows] = await conn.query(query)
     conn.end();

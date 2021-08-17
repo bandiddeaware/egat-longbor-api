@@ -89,7 +89,7 @@ router.patch('/', auth.required, async function(req, res, next) {
     `${req.body.idcard}.jpg`, // picture 
     req.body.company_id,     
     parseDateTime(new Date()), 
-    (req.body.mine_permit === "true" ? 1: 0), 
+    req.body.mine_permit,
     req.body.card_id, 
     req.body.card_expired, 
     6, // accetp work

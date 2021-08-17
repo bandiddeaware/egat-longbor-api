@@ -48,7 +48,6 @@ const check_contact = async (contract_num, contract_start_date, contract_end_dat
 
         WHERE number = "${contract_num}"
       `
-      console.log(update)
       const [rows_update] = await conn.query(update)
       return {
         status: true,
@@ -149,11 +148,8 @@ const Edit = async (
         
         company_id =  '${company_id}', 
         modified_at =  '${modified_at}', 
-        mine_permit =  '${mine_permit}', 
 
-        ${( card_id === undefined || card_id === "undefined" ? `` : `card_id =  '${card_id}',` )}
-
-        card_status =  '${card_status}'
+        mine_permit =  '${mine_permit}'
 
       WHERE id = ${person_id};
     `
