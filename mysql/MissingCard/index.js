@@ -1,18 +1,20 @@
 var mysql = require('../connection')
 
 module.exports = async (
-  person_id,
+  card_id,
   card_status
 ) => {
   const conn = await mysql.connection()
   try {
     var query = `
-      UPDATE person SET    
-        card_status =  '${card_status}'
+      UPDATE card SET    
 
-      WHERE id = ${person_id};
+        status =  '${card_status}'
+
+      WHERE id = ${card_id};
     `
     const [rows] = await conn.query(query)
+
     conn.end();
     return {
       isError: false,

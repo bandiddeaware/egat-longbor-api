@@ -2,7 +2,7 @@ var router = require('express').Router();
 var passport = require('passport');
 var auth = require("../../../auth")
 
-var returncard = require("../../../../mysql/ReturnCard")
+var returncard = require("../../../../mysql/MissingCard")
 
 router.unlink('/card/missing', auth.required, async function(req, res, next) {
   if (!req.body.card_id){
