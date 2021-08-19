@@ -9,20 +9,13 @@ module.exports = async (
   try {
     var query = `
       UPDATE card SET    
-        status =  '${card_status}'
+        status =  '${card_status}',
+        uhf_id =  '',
+        mifare_id =  ''
 
       WHERE id = ${card_id};
     `
     const [rows] = await conn.query(query)
-
-    var query = `
-      UPDATE person SET    
-        card_id = NULL,
-        card_expired = NULL
-
-      WHERE id = ${person_id};
-    `
-    const [rows_person] = await conn.query(query)
 
     conn.end();
     return {

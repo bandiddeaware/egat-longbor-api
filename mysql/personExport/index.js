@@ -4,6 +4,7 @@
 // 3 คืนบัตรแล้ว        person.card_id != undefined && (card.uhf_id != undefined || card.mifare != undefined) && card.status == inactive
 // 4 บัตรหมดอายุ       person.card_id != undefined && (card.uhf_id != undefined || card.mifare != undefined) && card.status == active   && is_expired
 // 5 ไม่อนุญาตทำงาน    person.card_id != undefined && (card.uhf_id != undefined || card.mifare != undefined) && card.status == active   && !person.mine_permit
+// 6 บัตรหาย           person.card_id != undefined && (card.uhf_id != undefined || card.mifare != undefined) && card.status == missing
 
 var fs = require('fs')
 

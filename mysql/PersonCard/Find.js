@@ -211,7 +211,6 @@ const Find = async (
     
       LIMIT ${limit} OFFSET ${offset}
     `
-    console.log(query_string)
     const [rows] = await conn.query(query_string)
     var query_string = `
       SELECT COUNT(*) as length
