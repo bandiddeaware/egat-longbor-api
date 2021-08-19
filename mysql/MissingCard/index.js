@@ -9,9 +9,7 @@ module.exports = async (
     var query = `
       UPDATE card SET    
 
-        status =  '${card_status}',
-        uhf_id =  '',
-        mifare_id =  ''
+        status =  '${card_status}'
 
       WHERE id = ${card_id};
     `
