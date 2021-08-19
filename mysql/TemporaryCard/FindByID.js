@@ -9,15 +9,10 @@ const FindMultipleID = async (
       SELECT 
 
         ps.*, 
-        pcs.*, 
         card.*, 
         card_st.*
       
       FROM person as ps
-    
-
-      LEFT JOIN person_card_status as pcs
-        ON ps.card_status = pcs.id
       
       LEFT JOIN company as cp
         ON ps.company_id = cp.id

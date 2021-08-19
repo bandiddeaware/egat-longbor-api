@@ -6,7 +6,6 @@ router.use("/managepersoncard", require("./register_card_add"))
 router.use("/managepersoncard", require("./register_card_edit"))
 router.use("/managepersoncard", require("./register_card_delete"))
 
-router.use("/managepersoncard", require("./list_cardstatus"))
 router.use("/managepersoncard", require("./list_company"))
 router.use("/managepersoncard", require("./list_contract"))
 router.use("/managepersoncard", require("./list_provice"))

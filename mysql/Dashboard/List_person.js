@@ -159,9 +159,6 @@ const FindLog = async (
       LEFT JOIN company as cn
         ON ps.company_id = cn.id
       
-      LEFT JOIN person_card_status as pcs
-        ON ps.card_status = pcs.id
-      
       LEFT JOIN card as card
         ON acl.card_id = card.id
       
@@ -221,9 +218,6 @@ const FindLog = async (
       
       LEFT JOIN company as cn
         ON ps.company_id = cn.id
-      
-      LEFT JOIN person_card_status as pcs
-        ON ps.card_status = pcs.id
       
       LEFT JOIN card as card
         ON acl.card_id = card.id

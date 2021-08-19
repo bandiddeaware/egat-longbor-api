@@ -142,7 +142,6 @@ const Find = async (
       SELECT 
         ps.id as person_id,
         ps.*, 
-        pcs.*, 
         
         card.id AS card_id, 
         card.uhf_id AS card_uhf_id, 
@@ -159,10 +158,6 @@ const Find = async (
         contract.end_date AS contract_end
 
       FROM person as ps
-    
-
-      LEFT JOIN person_card_status as pcs
-        ON ps.card_status = pcs.id
       
       LEFT JOIN company as cp
         ON ps.company_id = cp.id
@@ -222,9 +217,6 @@ const Find = async (
       SELECT COUNT(*) as length
       
       FROM person as ps
-    
-      LEFT JOIN person_card_status as pcs
-        ON ps.card_status = pcs.id
       
       LEFT JOIN company as cp
         ON ps.company_id = cp.id

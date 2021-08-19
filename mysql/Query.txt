@@ -11,8 +11,6 @@ ON table1.column_name = table2.column_name;
 SELECT ps.*, pcs.id, pcs.description, card.*
 FROM person as ps
 
-INNER JOIN person_card_status as pcs
-ON ps.card_status = pcs.id
 
 INNER JOIN company as cp
 ON ps.company_id = cp.id
@@ -27,9 +25,6 @@ LIMIT 10 OFFSET 0
 ============== FIND PERSON MAIN BY company_id =============
 SELECT ps.*, pcs.id, pcs.description, card.*
 FROM person as ps
-
-INNER JOIN person_card_status as pcs
-ON ps.card_status = pcs.id
 
 INNER JOIN company as cp
 ON ps.company_id = cp.id
@@ -47,9 +42,6 @@ LIMIT 1000 OFFSET 0
 SELECT ps.*, pcs.id, pcs.description, card.*
 FROM person as ps
 
-INNER JOIN person_card_status as pcs
-ON ps.card_status = pcs.id
-
 INNER JOIN company as cp
 ON ps.company_id = cp.id
 
@@ -64,9 +56,6 @@ LIMIT 1000 OFFSET 0
 ============== FIND PERSON MAIN BY idcard =============
 SELECT ps.*, pcs.id, pcs.description, card.*
 FROM person as ps
-
-INNER JOIN person_card_status as pcs
-ON ps.card_status = pcs.id
 
 INNER JOIN company as cp
 ON ps.company_id = cp.id
@@ -582,13 +571,6 @@ note:
       LEFT JOIN company as cn
         ON ps.company_id = cn.id
 
-  -## LEFT JOIN table person_card_status as pcs
-    ps.card_status = pcs.id
-  // เอาสถานะบัตรของบุคคล
-
-    LEFT JOIN person_card_status as pcs
-      ON ps.card_status = pcs.id
-
   ## LEFT JOIN table tb_entrance as et
     acl.entrance_id = et.id
   // เอารายชื่ออุปกรณ์
@@ -623,9 +605,6 @@ LEFT JOIN person as ps
 
 LEFT JOIN company as cn
   ON ps.company_id = cn.id
-
-LEFT JOIN person_card_status as pcs
-  ON ps.card_status = pcs.id
 
 LEFT JOIN card as card
   ON acl.card_id = card.id

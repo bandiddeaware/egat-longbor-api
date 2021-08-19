@@ -148,8 +148,6 @@ const Add = async (
       company_id =  '${company_id}', 
       created_at =  '${created_at}', 
       modified_at =  '${modified_at}', 
-  
-      card_status =  0, 
 
       mine_permit =  '${mine_permit}'
     `
