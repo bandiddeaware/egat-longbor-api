@@ -144,7 +144,6 @@ const Find = async (
         card.mifare_id AS card_mifare_id, 
         card.status AS card_status,
 
-        ct.*,
         cp.*,
         
         ps.contract_num AS contract_number,
@@ -216,6 +215,12 @@ const Find = async (
 
     LEFT JOIN company AS cp
       ON ps.company_id = cp.id
+
+    LEFT JOIN contract as  contract
+      ON contract.number = ps.contract_num
+
+    LEFT JOIN person_type AS pt
+      ON pt.id = ps.type
 
     WHERE 
       ${(WhereParameter(  
