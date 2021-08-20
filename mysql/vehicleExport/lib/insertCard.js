@@ -7,13 +7,13 @@ module.exports = async (card_id) => {
     card_id.forEach((element, index) => {
       getQuery += `
         (
-          "${element.card_id}"
+          "${element.card_id}", 100
         )${(index === (card_id.length - 1) ? "": ",")}
       `
     });
     var query = `
       INSERT INTO card(
-        id
+        id, type
       ) VALUES ${getQuery}
     `
     const [rows] = await conn.query(query)
