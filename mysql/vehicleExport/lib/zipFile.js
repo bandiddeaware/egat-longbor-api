@@ -54,8 +54,9 @@ module.exports = async (pic_file, csv) => {
   zip.addFile("export.csv", Buffer.from(content), "egat export .csv");
   for(var i = 0; i < pic_file.length;i++){
     if (!pic_file[i].result){
-      var fs_data = fs.readFileSync(process.env.DEFAULTIMAGE + 'vehecle_defualt_image.jpg')
-      zip.addFile(pic_file[i].picture_name , Buffer.from(fs_data), "egat export image");
+      // no user image default vehicle
+      // var fs_data = fs.readFileSync(process.env.DEFAULTIMAGE + 'vehecle_defualt_image.jpg')
+      // zip.addFile(pic_file[i].picture_name , Buffer.from(fs_data), "egat export image");
     } else {
       zip.addLocalFile(process.env.SRCDIRVEHICLE + pic_file[i].picture_name);
     }
