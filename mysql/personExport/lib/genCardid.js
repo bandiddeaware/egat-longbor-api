@@ -39,7 +39,7 @@ module.exports = async (person_id, num_card) => {
 
   // =============== find person =============================================
   var query = `
-    SELECT ps.id AS person_id, ps.*,card.* FROM person AS ps LEFT JOIN card AS card ON ps.card_id = card.id  WHERE ps.id IN ${person_id} AND (card.type <> 1 OR ps.card_id IS NULL) AND card_id IS NULL OR card.status = -1;
+    SELECT ps.id AS person_id, ps.*,card.* FROM person AS ps LEFT JOIN card AS card ON ps.card_id = card.id  WHERE ps.id IN ${person_id} AND  ps.type <> 1 AND ps.card_id IS NULL AND ps.egat_person_code IS NULL AND ps.company_id <> 0
   `
   console.log("query person : ")
   console.log(query)

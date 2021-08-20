@@ -56,7 +56,7 @@ module.exports = async (vehicle_id, num_card) => {
 
   // =============== find vehicle =============================================
   var query = `
-    SELECT vh.id AS vehicle_id, vh.* FROM vehicle AS vh LEFT JOIN card AS card ON vh.card_id = card.id WHERE vh.id IN ${vehicle_id} AND ((card.type > 100) OR vh.card_id IS NULL) AND vh.card_id IS NULL
+    SELECT vh.id AS vehicle_id, vh.* FROM vehicle AS vh LEFT JOIN card AS card ON vh.card_id = card.id WHERE vh.id IN ${vehicle_id} AND vh.card_id IS NULL
   `
   const [rows_vehicle] = await conn.query(query)
   console.log("rows_vehicle: ",rows_vehicle.length)

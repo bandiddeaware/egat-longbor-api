@@ -25,7 +25,7 @@ const FindMultipleID = async (
       LEFT JOIN card as card
         ON ps.card_id = card.id
 
-      WHERE ps.id IN  ${multiple_id} AND card.type = 0 AND card.status = 0
+      WHERE ps.id IN  ${multiple_id}
     `
     const [rows] = await conn.query(query)
     conn.end();

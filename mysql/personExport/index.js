@@ -45,6 +45,7 @@ module.exports = async (
   // =============== insert card id =============================
   if (card_id.length > 0){
     var insert_card = await insertCard(card_id)
+    console.log(insert_card)
     if (insert_card.data.affectedRows !== card_id.length){
       return {
         isError: true, 
@@ -66,6 +67,7 @@ module.exports = async (
 
   // =============== fine picture person by id ==================
   const result = await findPicture.FindMultipleID(person_id)
+  console.log(result)
   if (result.data.length === 0){
     return {
       isError: true, 
