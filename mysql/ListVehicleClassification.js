@@ -3,7 +3,7 @@ var mysql = require('./connection')
 module.exports = async () => {
   const conn = await mysql.connection()
   try {
-    const [rows] = await conn.query(`SELECT * FROM vehicle_classfication WHERE 1`)
+    const [rows] = await conn.query(`SELECT * FROM vehicle_classification WHERE 1`)
     conn.end();
     return {
       isError: false,

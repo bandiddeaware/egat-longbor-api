@@ -160,7 +160,7 @@ const Find = async (
         tpv.name_th AS province,
         vhb.name AS brand,
         vh.model AS model,
-        vh.classification AS v_classification, 
+        vh.classification AS vehicle_classification, 
         cm.name AS company,
         card.id AS card_id,
         card.uhf_id AS uhf_id,
@@ -176,7 +176,10 @@ const Find = async (
         cm.id AS company_id,
         vhb.id AS vehicle_brand_id,
         tpv.id AS province_id,
-        vcfc.id AS vehicle_classification_id
+        vcfc.id AS vehicle_classification_id,
+        vt.id AS vehicle_type,
+        vt.description AS vehicle_description,
+        vt.is_temporary AS is_temporary
 
       FROM vehicle AS vh
       
@@ -195,6 +198,9 @@ const Find = async (
       LEFT JOIN tb_provinces AS tpv
         ON tpv.id = vh.province_id
       
+      LEFT JOIN vehicle_type AS vt
+        ON vh.type = vt.id
+
       WHERE ${(WhereParameter(  
         card_id,
         license,

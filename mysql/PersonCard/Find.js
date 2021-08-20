@@ -147,7 +147,7 @@ const Find = async (
         card.uhf_id AS card_uhf_id, 
         card.mifare_id AS card_mifare_id, 
         card.status AS card_status, 
-        pt.description AS card_type,
+        pt.description AS person_type_description,
         
         ps.contract_num AS contract_number,
 
