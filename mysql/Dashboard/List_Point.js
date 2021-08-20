@@ -31,7 +31,7 @@ const FindLog = async (
     }else if (sort_type === 'firstname'){
       query_sort = 'ps.firstname'
     }else if (sort_type === 'card_type_desc'){
-      query_sort = 'ct.description'
+      query_sort = 'pt.description'
     }else if (sort_type === 'enchance_name'){
       query_sort = 'st.name'
     }else if (sort_type === 'id'){
@@ -106,8 +106,8 @@ const FindLog = async (
       LEFT JOIN station AS st
         ON apl.station_id = st.id
         
-      LEFT JOIN card_type AS ct
-        ON card.type = ct.id
+      LEFT JOIN person_type AS pt
+        ON ps.type = pt.id
       
       WHERE ${
         WhereSearch(check_seach)
@@ -129,7 +129,7 @@ const FindLog = async (
       card.id,
       card.type,
       st.name,
-      ct.description AS card_type_desc,
+      pt.description AS card_type_desc,
       cn.name AS company,
       apl.station_id as station_id
       
@@ -148,8 +148,8 @@ const FindLog = async (
       LEFT JOIN station AS st
         ON apl.station_id = st.id
         
-      LEFT JOIN card_type AS ct
-        ON card.type = ct.id
+      LEFT JOIN person_type AS pt
+        ON ps.type = pt.id
       
       WHERE ${
         WhereSearch(check_seach)

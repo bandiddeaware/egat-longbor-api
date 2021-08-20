@@ -29,7 +29,7 @@ const FindPerson = async (
     }else if (sort_type === 'surname') {
       query_sort = 'ps.lastname'
     }else if (sort_type === 'card_type'){
-      query_sort = 'card_t.description'
+      query_sort = 'pt.description'
     } else if (sort_type === 'person_id') {
       query_sort = 'ps.id'
     }else {
@@ -51,7 +51,7 @@ const FindPerson = async (
     if (firstname !== undefined) { q_arr.push(`ps.firstname LIKE '%${firstname}%'`); count++; }
     if (lastname !== undefined) { q_arr.push(`ps.lastname LIKE '%${lastname}%'`); count++; }
     if (company_name !== undefined) { q_arr.push(`cp.name LIKE "%${company_name}%"`); count++; }
-    if (card_type !== undefined) { q_arr.push(`card.type = ${card_type}`); count++; }
+    if (card_type !== undefined) { q_arr.push(`pt.id = ${card_type}`); count++; }
     if (q_arr.length === 0){
       return ''
     }
@@ -71,8 +71,8 @@ const FindPerson = async (
       LEFT JOIN card AS card
         ON ps.card_id = card.id
 
-      LEFT JOIN card_type AS card_t
-        ON card.type = card_t.id
+      LEFT JOIN person_type AS pt
+        ON ps.type = pt.id
 
       LEFT JOIN card_status AS card_st
         ON card.status = card_st.id
@@ -119,7 +119,7 @@ const FindPerson = async (
       cp.id AS company_id,
       cp.name AS company_name,
       card_st.description AS card_status_desc,
-      card_t.description AS card_type_desc,
+      pt.description AS card_type_desc,
       card.id AS card_id,
 
       IF(ps.asbp_checked_at > ps.check_in_at, TRUE, FALSE) AS is_in_assambly_point,
@@ -132,8 +132,8 @@ const FindPerson = async (
     LEFT JOIN card AS card
       ON ps.card_id = card.id
 
-    LEFT JOIN card_type AS card_t
-      ON card.type = card_t.id
+    LEFT JOIN person_type AS pt
+      ON ps.type = pt.id
 
     LEFT JOIN card_status AS card_st
       ON card.status = card_st.id

@@ -148,15 +148,15 @@ const FindLog = async (
       LEFT JOIN card as card
         ON acl.card_id = card.id
       
-      LEFT JOIN card_type as card_t
-        ON card.type = card_t.id
-      
       LEFT JOIN station as et
         ON et.id = acl.entrance_id
       
       LEFT JOIN vehicle AS vh
         ON vh.id = acl.vehicle_id
       
+      LEFT JOIN person_type AS pt
+        ON vh.type = pt.id
+
       LEFT JOIN company as cn
         ON vh.company_id = cn.id
       
@@ -203,7 +203,7 @@ const FindLog = async (
       
       vh.*,
       
-      card_t.description AS card_type,
+      pt.description AS card_type,
       cn.name AS company_name,
       acl.access_result AS access_result,
 
@@ -216,15 +216,15 @@ const FindLog = async (
       LEFT JOIN card as card
         ON acl.card_id = card.id
       
-      LEFT JOIN card_type as card_t
-        ON card.type = card_t.id
-      
       LEFT JOIN station as et
         ON et.id = acl.entrance_id
       
       LEFT JOIN vehicle AS vh
         ON vh.id = acl.vehicle_id
       
+      LEFT JOIN person_type AS pt
+        ON vh.type = pt.id
+
       LEFT JOIN company as cn
         ON vh.company_id = cn.id
       

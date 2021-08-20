@@ -1,6 +1,4 @@
 var router = require('express').Router();
-var passport = require('passport');
-var export_person = require("../../../../data/person_card/export_person")
 var auth = require("../../../auth")
 
 var ExportCSV = require("../../../../mysql/personExport")

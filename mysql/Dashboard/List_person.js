@@ -40,7 +40,7 @@ const FindLog = async (
     }else if (sort_type === 'name'){
       query_sort = 'ps.firstname'
     }else if (sort_type === 'card_type'){
-      query_sort = 'card_t.description'
+      query_sort = 'pt.description'
     } else {
       query_sort = 'acl.access_time'
     }
@@ -162,8 +162,8 @@ const FindLog = async (
       LEFT JOIN card as card
         ON acl.card_id = card.id
       
-      LEFT JOIN card_type as card_t
-        ON card.type = card_t.id
+      LEFT JOIN person_type AS pt
+        ON ps.type = pt.id
       
       LEFT JOIN station as et
         ON et.id = acl.entrance_id
@@ -206,7 +206,7 @@ const FindLog = async (
         card.id AS card_id,
         ps.firstname AS name,
         ps.lastname AS surname,
-        card_t.description AS card_type,
+        pt.description AS card_type,
         cn.name AS company_name,
         acl.access_result AS access_result,
         acl.entrance_id AS station_id
@@ -222,8 +222,8 @@ const FindLog = async (
       LEFT JOIN card as card
         ON acl.card_id = card.id
       
-      LEFT JOIN card_type as card_t
-        ON card.type = card_t.id
+      LEFT JOIN person_type AS pt
+        ON ps.type = pt.id
       
       LEFT JOIN station as et
         ON et.id = acl.entrance_id
