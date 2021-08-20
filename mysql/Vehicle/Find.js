@@ -160,7 +160,7 @@ const Find = async (
         tpv.name_th AS province,
         vhb.name AS brand,
         vh.model AS model,
-        vht.type AS vtype, 
+        vh.classification AS v_classification, 
         cm.name AS company,
         card.id AS card_id,
         card.uhf_id AS uhf_id,
@@ -176,12 +176,12 @@ const Find = async (
         cm.id AS company_id,
         vhb.id AS vehicle_brand_id,
         tpv.id AS province_id,
-        vht.id AS vehicle_type_id
+        vcfc.id AS vehicle_classification_id
 
       FROM vehicle AS vh
       
-      LEFT JOIN vehicle_type AS vht
-        ON vht.id = vh.type_id
+      LEFT JOIN vehicle_classification AS vcfc
+        ON vcfc.id = vh.classification
         
       LEFT JOIN vehicle_brand AS vhb
         ON vhb.id = vh.brand_id
@@ -235,9 +235,6 @@ const Find = async (
       SELECT 
         COUNT(*) AS length
       FROM vehicle AS vh
-      
-      LEFT JOIN vehicle_type AS vht
-        ON vht.id = vh.type_id
         
       LEFT JOIN vehicle_brand AS vhb
         ON vhb.id = vh.brand_id
