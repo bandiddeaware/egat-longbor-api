@@ -32,74 +32,74 @@ const Find = async (
         uhf_id === undefined && 
         mifare_id === undefined
       ){
-        return `((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0`
+        return `((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL`
       }
 
       if (company_name !== undefined){
         if (name !== undefined && surname !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (name !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.firstname LIKE '%${name}%' AND cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (surname !== undefined){
           return `
-            ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (id_card !== undefined) {
           return `
-            ps.idcard LIKE "%${id_card}%" AND cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.idcard LIKE "%${id_card}%" AND cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         // ------------------------- find by uhf_id or mifare_id [ uhf_id, mifare_id ] -------------------------
         if (uhf_id !== undefined){
           return `
-            card.uhf_id LIKE "%${uhf_id}% AND cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            card.uhf_id LIKE "%${uhf_id}% AND cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (mifare_id !== undefined){
           return `
-            card.mifare_id LIKE "%${mifare_id}%" AND cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            card.mifare_id LIKE "%${mifare_id}%" AND cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         return `
-          cp.name LIKE "%${company_name}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+          cp.name LIKE "%${company_name}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
         `
       }else {
         if (name !== undefined && surname !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (name !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.firstname LIKE '%${name}%' AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (surname !== undefined){
           return `
-            ps.lastname LIKE '%${surname}%' AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.lastname LIKE '%${surname}%' AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (id_card !== undefined) {
           return `
-            ps.idcard LIKE "%${id_card}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            ps.idcard LIKE "%${id_card}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         // ------------------------- find by uhf_id or mifare_id [ uhf_id, mifare_id ] -------------------------
         if (uhf_id !== undefined){
           return `
-            card.uhf_id LIKE "%${uhf_id}% AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            card.uhf_id LIKE "%${uhf_id}% AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         if (mifare_id !== undefined){
           return `
-            card.mifare_id LIKE "%${mifare_id}%" AND ((card.type > 0 AND card.type < 50) OR ps.card_id IS NULL) OR card.type = 0
+            card.mifare_id LIKE "%${mifare_id}%" AND ((card.type >= 0 AND card.type < 50) OR ps.card_id IS NULL) OR egat_person_code IS NULL
           `
         }
         return ``
