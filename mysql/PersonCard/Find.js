@@ -147,7 +147,8 @@ const Find = async (
         card.uhf_id AS card_uhf_id, 
         card.mifare_id AS card_mifare_id, 
         card.status AS card_status, 
-
+        pt.description AS card_type,
+        
         ps.contract_num AS contract_number,
 
         card_st.*,
@@ -155,7 +156,6 @@ const Find = async (
         contract.start_date AS contract_start,
         contract.end_date AS contract_end,
         ps.type AS person_type_id,
-        pt.description AS person_type_name,
         pt.is_temporary AS is_temporary
 
       FROM person as ps
