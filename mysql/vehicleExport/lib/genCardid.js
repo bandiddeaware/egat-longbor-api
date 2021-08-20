@@ -50,7 +50,7 @@ module.exports = async (vehicle_id, num_card) => {
     egat_temporary_card = (rows_card_temporary[0].id).toString()
   
   }
-console.log("egat_temporary_card :", egat_temporary_card)
+  console.log("egat_temporary_card :", egat_temporary_card)
 
 
 
@@ -59,22 +59,30 @@ console.log("egat_temporary_card :", egat_temporary_card)
     SELECT vh.id AS vehicle_id, vh.* FROM vehicle AS vh LEFT JOIN card AS card ON vh.card_id = card.id WHERE vh.id IN ${vehicle_id} AND ((card.type > 100) OR vh.card_id IS NULL) AND vh.card_id IS NULL
   `
   const [rows_vehicle] = await conn.query(query)
-  console.log(rows_vehicle)
+  console.log("rows_vehicle: ",rows_vehicle.length)
   rows_vehicle.forEach((item, index) => {
-    if (item.egat_plate === null){
-      // not egat vehicle
-      gen_card_vehicle.push({
-        id_vehicle: item.vehicle_id,
-        card_id: new Date().getFullYear().toString() + addDigiNubmerStr((Number(egat_temporary_card.substring(4)) + 1 + index).toString())
-      })
-    } else {
-      // egat vehicle
-      gen_card_vehicle.push({
-        id_vehicle: item.id,
-        card_id: "1000" + addDigiNubmerStr_egat_card((item.vehicle_id).toString())
-        // 1000 571110
-      })
-    }
+
+
+    gen_card_vehicle.push({
+      id_vehicle: item.vehicle_id,
+      card_id: new Date().getFullYear().toString() + addDigiNubmerStr((Number(egat_temporary_card.substring(4)) + 1 + index).toString())
+    })
+
+
+    // if (item.egat_plate === null){
+    //   // not egat vehicle
+    //   gen_card_vehicle.push({
+    //     id_vehicle: item.vehicle_id,
+    //     card_id: new Date().getFullYear().toString() + addDigiNubmerStr((Number(egat_temporary_card.substring(4)) + 1 + index).toString())
+    //   })
+    // } else {
+    //   // egat vehicle
+    //   gen_card_vehicle.push({
+    //     id_vehicle: item.id,
+    //     card_id: "1000" + addDigiNubmerStr_egat_card((item.vehicle_id).toString())
+    //     // 1000 571110
+    //   })
+    // }
   })
 
   return gen_card_vehicle

@@ -7,6 +7,7 @@ router.use("/vehicle", require("./export"))
 
 router.use("/vehicle", require("./list_brand"))
 router.use("/vehicle", require("./list_vehicle_type"))
+router.use("/vehicle", require("./list_vehicle_classification"))
 
 router.use(function(err, req, res, next){
   if(err.name === 'ValidationError'){

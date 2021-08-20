@@ -15,11 +15,14 @@ router.put('/', auth.required, async function(req, res, next) {
   if (!req.body.province_id){
     return res.status(400).json({errors: {message: "province_id can't be blank"}});
   }
-  if (!req.body.type_Id){
-    return res.status(400).json({errors: {message: "type_Id can't be blank"}});
+  if (!req.body.classification){
+    return res.status(400).json({errors: {message: "classification can't be blank"}});
   }
   if (!req.body.company_id){
     return res.status(400).json({errors: {message: "company_id can't be blank"}});
+  }
+  if (!req.body.vehicle_type){
+    return res.status(400).json({errors: {message: "vehicle_type can't be blank"}});
   }
 
 
@@ -29,8 +32,8 @@ router.put('/', auth.required, async function(req, res, next) {
   if (req.body.province_id === undefined || req.body.province_id === "undefined"){
     return res.status(400).json({errors: {message: "province_id can't be undefined"}});
   }
-  if (req.body.type_Id === undefined || req.body.type_Id === "undefined"){
-    return res.status(400).json({errors: {message: "type_Id can't be undefined"}});
+  if (req.body.classification === undefined || req.body.classification === "undefined"){
+    return res.status(400).json({errors: {message: "classification can't be undefined"}});
   }
   if (req.body.company_id === undefined || req.body.company_id === "undefined"){
     return res.status(400).json({errors: {message: "company_id can't be undefined"}});
@@ -45,7 +48,11 @@ router.put('/', auth.required, async function(req, res, next) {
   if (req.body.faction2_D_ABBR === null || req.body.faction2_D_ABBR === "null" || req.body.faction2_D_ABBR === "NULL"){
     return res.status(400).json({errors: {message: "faction2_D_ABBR is null"}});
   }
-  
+  if (req.body.vehicle_type === null || req.body.vehicle_type === "null" || req.body.vehicle_type === "NULL"){
+    return res.status(400).json({errors: {message: "vehicle_types is null"}});
+  }
+
+
   if (req.body.egat_plate === ""){
     return res.status(400).json({errors: {message: "egat_plate is empty"}});
   }
@@ -55,6 +62,9 @@ router.put('/', auth.required, async function(req, res, next) {
   if (req.body.faction2_D_ABBR === ""){
     return res.status(400).json({errors: {message: "faction2_D_ABBR is empty"}});
   }
+  if (req.body.vehicle_type === ""){
+    return res.status(400).json({errors: {message: "vehicle_type is empty"}});
+  }
 
   const result_query = await VehicleAdd(
     req.body.company_id,
@@ -63,12 +73,13 @@ router.put('/', auth.required, async function(req, res, next) {
     req.body.license,
     req.body.province_id,
     req.body.brand_id,
-    req.body.type_Id,
+    req.body.classification,
     req.body.remark,
     req.body.model,
     req.body.egat_plate,
     req.body.faction2_DIV,
-    req.body.faction2_D_ABBR
+    req.body.faction2_D_ABBR,
+    req.body.vehicle_type
   )
   if (result_query.isError === false){
     if (req.file !== undefined){

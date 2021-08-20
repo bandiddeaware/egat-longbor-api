@@ -1,22 +1,22 @@
 var mysql = require('../connection')
 var chcekNumuric = require("../../commons/checkNumuric")
 
-const check_type_Id = async (type_Id, conn) => {
-  var check = chcekNumuric(type_Id)
+const check_classification = async (classification, conn) => {
+  var check = chcekNumuric(classification)
   if (check){
     return {
       status: true,
-      type_Id: type_Id
+      classification: classification
     }
   }else {
     // insert and find id
-    var name = type_Id
+    var name = classification
     var query = `
-      INSERT INTO vehicle_type SET    
+      INSERT INTO vehicle_classification SET    
         type = "${name}"
     `
-    console.log(`SELECT COUNT(*) AS count FROM vehicle_type WHERE type LIKE "${name}"`)
-    const [check_tb_type_dup] = await conn.query(`SELECT COUNT(*) AS count FROM vehicle_type WHERE type LIKE "${name}"`)
+    console.log(`SELECT COUNT(*) AS count FROM vehicle_classification WHERE type LIKE "${name}"`)
+    const [check_tb_type_dup] = await conn.query(`SELECT COUNT(*) AS count FROM vehicle_classification WHERE type LIKE "${name}"`)
     if (check_tb_type_dup[0].count > 0){
       return {
         status: false,
@@ -25,7 +25,7 @@ const check_type_Id = async (type_Id, conn) => {
     const [rows] = await conn.query(query)
     return {
       status: true,
-      type_Id: rows.insertId
+      classification: rows.insertId
     }
   }
 }
@@ -45,8 +45,8 @@ const check_brand_id = async (brand_id, conn) => {
       INSERT INTO vehicle_brand SET    
         name = "${name}"
     `
-    console.log(`SELECT COUNT(*) AS count FROM vehicle_brand WHERE name LIKE "${name}"`)
     const [check_tb_brand_dup] = await conn.query(`SELECT COUNT(*) AS count FROM vehicle_brand WHERE name LIKE "${name}"`)
+    console.log(check_tb_brand_dup[0].count)
     if (check_tb_brand_dup[0].count > 0){
       return {
         status: false,
@@ -95,26 +95,27 @@ module.exports = async (
   license,
   province_id,
   brand_id,
-  type_Id,
+  classification,
   remark,
   model,
   egat_plate,
   faction2_DIV,
   faction2_D_ABBR,
-  vehicle_id
+  vehicle_id,
+  vehicle_type
 ) => {
   const conn = await mysql.connection()
   try {
 
     // =================== check type =================== 
-    type_Id = await check_type_Id(type_Id, conn)
-    if (type_Id.status === false){
+    classification = await check_classification(classification, conn)
+    if (classification.status === false){
       return {
         isError: true,
-        data: "type name is duplicate."
+        data: "classification name is duplicate."
       }
     } else {
-      type_Id = type_Id.type_Id
+      classification = classification.classification
     }
 
     // =================== check brand =================== 
@@ -158,8 +159,8 @@ module.exports = async (
     if (brand_id !== undefined && brand_id !== "undefined") {
       query_value.push(` brand_id= "${brand_id}" `)
     }
-    if (type_Id !== undefined && type_Id !== "undefined") {
-      query_value.push(` type_Id= "${type_Id}" `)
+    if (classification !== undefined && classification !== "undefined") {
+      query_value.push(` classification= "${classification}" `)
     }
     if (remark !== undefined && remark !== "undefined") {
       query_value.push(` remark= "${remark}" `)
@@ -176,6 +177,10 @@ module.exports = async (
     if (faction2_D_ABBR !== undefined && faction2_D_ABBR !== "undefined") {
       query_value.push(` faction2_D_ABBR= "${faction2_D_ABBR}" `)
     }
+    if (vehicle_type !== undefined && vehicle_type !== "undefined") {
+      query_value.push(` type= "${vehicle_type}" `)
+    }
+
     var str = ''
     query_value.forEach((v, i) => {  str += v + (i !== query_value.length-1 ? ",": "")})
     var query = `

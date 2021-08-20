@@ -32,72 +32,72 @@ const Find = async (
         mifare_id === undefined && 
         card_type === undefined
       ){
-        return `(((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0`
+        return `(((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0`
       }
     
       if (card_type !== undefined){
         if (name !== undefined && surname !== undefined){
           return `
-            ps.firstname LIKE "%${name}%" AND ps.lastname LIKE "%${surname}%" AND card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.firstname LIKE "%${name}%" AND ps.lastname LIKE "%${surname}%" AND ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (name !== undefined){
           return `
-            ps.firstname LIKE "%${name}%" AND card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.firstname LIKE "%${name}%" AND ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (surname !== undefined){
           return `
-            ps.lastname LIKE "%${surname}%" AND card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.lastname LIKE "%${surname}%" AND ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (id_card !== undefined) {
           return `
-            ps.idcard LIKE "%${id_card}%" AND card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.idcard LIKE "%${id_card}%" AND ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         // ----------------- filter uhf_id, mifare_id -----------------
         if (uhf_id !== undefined) {
           return `
-            card.uhf_id LIKE "%${uhf_id}%" AND card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            card.uhf_id LIKE "%${uhf_id}%" AND ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (mifare_id !== undefined) {
           return `
-            card.mifare_id LIKE "%${mifare_id}%" AND card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            card.mifare_id LIKE "%${mifare_id}%" AND ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
-        return `card.type = ${card_type} AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0`
+        return `ps.type = ${card_type} AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0`
       }else {
         if (name !== undefined && surname !== undefined){
           return `
-            ps.firstname LIKE "%${name}%" AND ps.lastname LIKE "%${surname}%" AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.firstname LIKE "%${name}%" AND ps.lastname LIKE "%${surname}%" AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (name !== undefined){
           return `
-            ps.firstname LIKE "%${name}%" AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.firstname LIKE "%${name}%" AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (surname !== undefined){
           return `
-            ps.lastname LIKE "%${surname}%" AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.lastname LIKE "%${surname}%" AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (id_card !== undefined) {
           return `
-            ps.idcard LIKE "%${id_card}%" AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            ps.idcard LIKE "%${id_card}%" AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         // ----------------- filter uhf_id, mifare_id -----------------
         if (uhf_id !== undefined) {
           return `
-            card.uhf_id LIKE "%${uhf_id}%" AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            card.uhf_id LIKE "%${uhf_id}%" AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
         if (mifare_id !== undefined) {
           return `
-            card.mifare_id LIKE "%${mifare_id}%" AND (((card.type > 50 AND card.type < 100) OR ps.card_id IS NULL) OR card.type = 0) AND ps.company_id <> 0
+            card.mifare_id LIKE "%${mifare_id}%" AND (((ps.type >=3 AND ps.type <=5 AND pt.is_temporary = 1) OR ps.card_id IS NULL) ) AND ps.company_id <> 0
           `
         }
       }
@@ -142,8 +142,7 @@ const Find = async (
         card.id AS card_id, 
         card.uhf_id AS card_uhf_id, 
         card.mifare_id AS card_mifare_id, 
-        card.type AS card_type,
-        card.status AS card_status, 
+        card.status AS card_status,
 
         ct.*,
         cp.*,
@@ -152,21 +151,23 @@ const Find = async (
 
         cp.name AS company_name,
         contract.start_date AS contract_start,
-        contract.end_date AS contract_end
+        contract.end_date AS contract_end,
+        pt.description AS person_type_name,
+        pt.is_temporary AS is_temporary
 
       FROM person AS ps
 
       LEFT JOIN card AS card
         ON card.id = ps.card_id
 
-      LEFT JOIN card_type AS ct
-        ON card.type = ct.id
-
       LEFT JOIN company AS cp
         ON ps.company_id = cp.id
 
       LEFT JOIN contract as  contract
         ON contract.number = ps.contract_num
+
+      LEFT JOIN person_type AS pt
+        ON pt.id = ps.type
 
       WHERE 
         ${(WhereParameter(  
@@ -212,9 +213,6 @@ const Find = async (
 
     LEFT JOIN card AS card
       ON card.id = ps.card_id
-
-    LEFT JOIN card_type AS ct
-      ON card.type = ct.id
 
     LEFT JOIN company AS cp
       ON ps.company_id = cp.id

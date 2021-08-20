@@ -96,6 +96,7 @@ const Edit = async (
   contract_num,
   contract_start_date,
   contract_end_date,
+  person_type
 ) => {
   const conn = await mysql.connection()
   try {
@@ -142,6 +143,7 @@ const Edit = async (
         ${( idcard_expired === undefined || idcard_expired === "undefined" || idcard_expired === ""  ? `` : `idcard_expired =  '${idcard_expired}', ` )}
         ${( picture === undefined || picture === "undefined" ? `` : `picture =  '${picture}',` )}
         ${( card_expired === undefined || card_expired === "undefined" || card_expired === "" ? `` : `card_expired =  '${card_expired}', ` )}
+        ${( person_type === undefined || person_type === "undefined" || person_type === "" ? `` : `type =  ${person_type}, ` )}
 
         ${(contract_num === undefined ? "": `contract_num = "${contract_num}",`)}
         
