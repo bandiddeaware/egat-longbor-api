@@ -113,9 +113,6 @@ const TatalPersonVehicle = async (
       LEFT JOIN card AS card
         ON ps.card_id = card.id
 
-      LEFT JOIN card_type AS card_t
-        ON card.type = card_t.id
-
       LEFT JOIN card_status AS card_st
         ON card.status = card_st.id
 
