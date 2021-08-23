@@ -140,6 +140,9 @@ const Add = async (
       ${( sub_district === undefined || sub_district === "undefined" ? `` : `sub_district =  '${sub_district}', ` )}
       ${( district === undefined || district === "undefined" ? `` : `district =  '${district}', ` )}
       ${( provinces === undefined || provinces === "undefined" ? `` : `provinces =  '${provinces}', ` )}
+      
+      ${( card_id === undefined || card_id === "undefined" || card_id === "" ? `` : `card_id =  '${card_id}', ` )}
+      
       ${( idcard_expired === undefined || idcard_expired === "undefined" ? `` : `idcard_expired =  '${idcard_expired}', ` )}
       ${( picture === undefined || picture === "undefined" ? `` : `picture =  '${picture}',` )}
       ${( card_expired === undefined || card_expired === "undefined" ? `` : `card_expired =  '${card_expired}', ` )}

@@ -142,6 +142,9 @@ const Edit = async (
         ${( provinces === undefined || provinces === "undefined" ? `` : `provinces =  '${provinces}', ` )}
         ${( idcard_expired === undefined || idcard_expired === "undefined" || idcard_expired === ""  ? `` : `idcard_expired =  '${idcard_expired}', ` )}
         ${( picture === undefined || picture === "undefined" ? `` : `picture =  '${picture}',` )}
+
+        ${( card_id === undefined || card_id === "undefined" || card_id === "" ? `` : `card_id =  '${card_id}', ` )}
+        
         ${( card_expired === undefined || card_expired === "undefined" || card_expired === "" ? `` : `card_expired =  '${card_expired}', ` )}
         ${( person_type === undefined || person_type === "undefined" || person_type === "" ? `` : `type =  ${person_type}, ` )}
 
