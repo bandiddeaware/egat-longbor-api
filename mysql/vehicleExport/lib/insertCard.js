@@ -7,7 +7,7 @@ module.exports = async (card_id) => {
     card_id.forEach((element, index) => {
       getQuery += `
         (
-          "${element.card_id}", 100
+          "${element.card_id}", 101
         )${(index === (card_id.length - 1) ? "": ",")}
       `
     });
