@@ -34,8 +34,8 @@ router.patch('/', auth.required, async function(req, res, next) {
   if (!req.body.idcard){
     return res.status(400).json({errors: {message: "idcard can't be blank"}});
   }
-  if (!req.body.person_type){
-    return res.status(400).json({errors: {message: "person_type can't be blank"}});
+  if (!req.body.person_type_id){
+    return res.status(400).json({errors: {message: "person_type_id can't be blank"}});
   }
 
   if (req.body.name_title === undefined && req.body.name_title === "undefined"){
@@ -53,8 +53,8 @@ router.patch('/', auth.required, async function(req, res, next) {
   if (req.body.company_id === undefined && req.body.company_id === "undefined"){
     return res.status(400).json({errors: {message: "company_id can't be undefined"}});
   }
-  if (req.body.person_type === undefined && req.body.person_type === "undefined"){
-    return res.status(400).json({errors: {message: "person_type can't be undefined"}});
+  if (req.body.person_type_id === undefined && req.body.person_type_id === "undefined"){
+    return res.status(400).json({errors: {message: "person_type_id can't be undefined"}});
   }
 
   // validation contract
@@ -104,7 +104,7 @@ router.patch('/', auth.required, async function(req, res, next) {
     req.body.contract_number,
     req.body.contract_start,
     req.body.contract_end,
-    req.body.person_type
+    req.body.person_type_id
   )
   if (result_query.isError === false){
     if (req.file !== undefined){
