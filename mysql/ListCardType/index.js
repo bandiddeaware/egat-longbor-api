@@ -3,7 +3,7 @@ var mysql = require('../connection')
 const Find = async () => {
   const conn = await mysql.connection()
   try {
-    const [rows] = await conn.query(`SELECT * FROM card WHERE type < 50 AND status = 0`)
+    const [rows] = await conn.query(`SELECT * FROM person_type WHERE 1`)
     conn.end();
     return {
       isError: false,
