@@ -92,15 +92,15 @@ const FindLog = async (
     var query_out = ""
     var count = 0
     var q_arr = []
-    if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0`        + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
-    if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1`    + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
-    if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`         + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
-    if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3`      + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
-    if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4` + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
-    if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5`   + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
+    if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0`        + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1`    + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`         + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3`      + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4` + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5`   + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
 
-    if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`   + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
-    if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL` + (direction !== undefined ? ` OR acl.access_direction = ${direction} `: ``) ); count++; }
+    if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`   + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL` + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
 
     if (q_arr.length === 0){
       return ''
