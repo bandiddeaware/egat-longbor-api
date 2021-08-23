@@ -67,6 +67,23 @@ const check_contact = async (contract_num, contract_start_date, contract_end_dat
   }
 }
 
+const updateCard = async (card_id, conn) => {
+  // check missing card
+  var quer = `select status from card where id = "${card_id}"`
+  const [rows_rows] = await conn.query(quer)
+
+  if (rows_rows[0].status === 0 ){
+    // update status card
+    var update = `
+      UPDATE card SET 
+      status = 1,
+      type = 1
+      WHERE id = "${card_id}"
+    `
+    const [rows_update] = await conn.query(update)
+  }
+}
+
 const Edit = async (
   person_id,
   idcard, 
@@ -122,7 +139,12 @@ const Edit = async (
     } else {
       contract_num = contract_num.contract_num
     }
-    
+
+    // update status card "active"
+    if (card_id !== undefined && card_id !== null){
+      updateCard(card_id, conn )
+    }
+
     var query = `
       UPDATE person SET    
         idcard =  '${idcard}', 
@@ -162,11 +184,11 @@ const Edit = async (
     const [rows] = await conn.query(query)
 
     if (card_type !== undefined &&  card_type !== "undefined" && card_type !== "" && card_id !== undefined && card_id !== "undefined" && card_id !== ""){
-      const [update_card] = await conn.query(`
-        UPDATE card SET
-          type=${card_type}
-        where id = ${card_id};
-      `) 
+      // const [update_card] = await conn.query(`
+      //   UPDATE card SET
+      //     type=${card_type}
+      //   where id = ${card_id};
+      // `) 
       conn.end();
       return {
         isError: false,
