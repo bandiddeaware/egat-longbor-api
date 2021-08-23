@@ -68,20 +68,20 @@ const check_contact = async (contract_num, contract_start_date, contract_end_dat
 }
 
 const updateCard = async (card_id, conn) => {
-  // check missing card
-  var quer = `select status from card where id = "${card_id}"`
-  const [rows_rows] = await conn.query(quer)
+  // // check missing card
+  // var quer = `select status from card where id = "${card_id}"`
+  // const [rows_rows] = await conn.query(quer)
 
-  if (rows_rows[0].status === 0 ){
-    // update status card
-    var update = `
-      UPDATE card SET 
-      status = 1,
-      type = 1
-      WHERE id = "${card_id}"
-    `
-    const [rows_update] = await conn.query(update)
-  }
+  // if (rows_rows[0].status === 0 ){
+  //   // update status card
+  //   var update = `
+  //     UPDATE card SET 
+  //     status = 1,
+  //     type = 1
+  //     WHERE id = "${card_id}"
+  //   `
+  //   const [rows_update] = await conn.query(update)
+  // }
 }
 
 const Add = async (
