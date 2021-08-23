@@ -92,15 +92,15 @@ const FindLog = async (
     var query_out = ""
     var count = 0
     var q_arr = []
-    if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0`        + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
-    if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1`    + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
-    if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`         + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
-    if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3`      + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
-    if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4` + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
-    if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5`   + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0`        + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1`    + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`         + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3`      + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4` + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5`   + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
 
-    if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`   + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
-    if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL` + (direction !== undefined ? ` AND acl.access_direction = ${direction} `: ``) ); count++; }
+    if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`   + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL` + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR (acl.ch_type = 0 AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
 
     if (q_arr.length === 0){
       return ''
@@ -167,7 +167,7 @@ const FindLog = async (
         ON et.id = acl.entrance_id
       
       WHERE 
-        (acl.access_type = 1 OR acl.access_type = 0) AND
+        (acl.ch_type = 0) AND
 
         ${ WhereSearch(
           // check_seach_1,
@@ -227,7 +227,7 @@ const FindLog = async (
         ON et.id = acl.entrance_id
       
       WHERE 
-        (acl.access_type = 1 OR acl.access_type = 0) AND
+        (acl.ch_type = 0) AND
 
         ${ WhereSearch(
           // check_seach_1,
@@ -249,12 +249,13 @@ const FindLog = async (
 
         ${(check_seach_1 ? ") AND ": "")}
 
-        acl.access_time BETWEEN ? AND ?
+        acl.access_time BETWEEN "${start_time}" AND "${stop_time}"
       
       ORDER BY ${check_sort_type(sort_type)}  ${sort}
 
       LIMIT ${limit} OFFSET ${offset}
     `
+    console.log(query_string_list_person)
     const [list_person] = await conn.query(query_string_list_person,[ 
       start_time, stop_time,
     ])

@@ -164,7 +164,7 @@ const FindLog = async (
         ON vh.province_id = pv.id
 
       WHERE 
-        (acl.access_type = 2 OR acl.access_type = 0) AND
+        (acl.ch_type = 1) AND
 
         ${
           WhereSearch(
@@ -232,7 +232,7 @@ const FindLog = async (
         ON vh.province_id = pv.id
 
       WHERE 
-        (acl.access_type = 2 OR acl.access_type = 0) AND
+        (acl.ch_type = 1) AND
         
         ${
           WhereSearch(
