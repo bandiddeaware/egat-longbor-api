@@ -124,7 +124,6 @@ const TatalPersonVehicle = async (
         
         ps.check_in_at IS NOT NULL AND 
         ps.check_out_at IS NOT NULL AND
-        ps.asbp_checked_at IS NOT NULL AND 
 
         ps.card_id IS NOT NULL
     `
