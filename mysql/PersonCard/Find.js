@@ -32,74 +32,74 @@ const Find = async (
         uhf_id === undefined && 
         mifare_id === undefined
       ){
-        return `(ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))`
+        return `(company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))`
       }
 
       if (company_name !== undefined){
         if (name !== undefined && surname !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (name !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.firstname LIKE '%${name}%' AND cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (surname !== undefined){
           return `
-            ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.lastname LIKE '%${surname}%' AND cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (id_card !== undefined) {
           return `
-            ps.idcard LIKE "%${id_card}%" AND cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.idcard LIKE "%${id_card}%" AND cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         // ------------------------- find by uhf_id or mifare_id [ uhf_id, mifare_id ] -------------------------
         if (uhf_id !== undefined){
           return `
-            card.uhf_id LIKE "%${uhf_id}% AND cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            card.uhf_id LIKE "%${uhf_id}% AND cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (mifare_id !== undefined){
           return `
-            card.mifare_id LIKE "%${mifare_id}%" AND cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            card.mifare_id LIKE "%${mifare_id}%" AND cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         return `
-          cp.name LIKE "%${company_name}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+          cp.name LIKE "%${company_name}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
         `
       }else {
         if (name !== undefined && surname !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.firstname LIKE '%${name}%' AND ps.lastname LIKE '%${surname}%' AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (name !== undefined){
           return `
-            ps.firstname LIKE '%${name}%' AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.firstname LIKE '%${name}%' AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (surname !== undefined){
           return `
-            ps.lastname LIKE '%${surname}%' AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.lastname LIKE '%${surname}%' AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (id_card !== undefined) {
           return `
-            ps.idcard LIKE "%${id_card}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            ps.idcard LIKE "%${id_card}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         // ------------------------- find by uhf_id or mifare_id [ uhf_id, mifare_id ] -------------------------
         if (uhf_id !== undefined){
           return `
-            card.uhf_id LIKE "%${uhf_id}% AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            card.uhf_id LIKE "%${uhf_id}% AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         if (mifare_id !== undefined){
           return `
-            card.mifare_id LIKE "%${mifare_id}%" AND (ps.card_id IS NULL OR company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
+            card.mifare_id LIKE "%${mifare_id}%" AND (company_id = 0 OR (ps.type <= 2 AND pt.is_temporary = 0))
           `
         }
         return ``
