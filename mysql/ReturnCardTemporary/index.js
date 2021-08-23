@@ -9,7 +9,7 @@ module.exports = async (
   try {
     var query = `
       UPDATE person SET    
-        card_id =  NULL,
+        card_id =  NULL
       WHERE id = ${person_id};
     `
     // remove card_id from person 
