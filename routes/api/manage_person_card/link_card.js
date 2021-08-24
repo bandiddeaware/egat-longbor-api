@@ -23,7 +23,7 @@ router.link('/link_card', auth.required, async function(req, res, next) {
     return res.status(400).json({errors: {message: "mifare_id can't be undefined"}});
   }
 
-  if (req.body.type === "person"){
+  if (req.body.type === "person" || req.body.type === 'vehicle'){
     const result = await registercard.Edit(req.body.card_id, req.body.uhf_id, req.body.mifare_id, undefined)
     if (result.isError === false){
       return res.status(200).json({ result: result.data, status: true })
