@@ -81,8 +81,8 @@ router.patch('/', auth.required, async function(req, res, next) {
     if (req.file !== undefined){
       // save picture file
       var idVehicle = req.body.vehicle_id
-      var resize_image_buffer = await sharp(req.file.buffer).resize({ height: 150 }).jpeg({ quality: 70 }).toBuffer()
-      const result_save_image = await WriteImage(resize_image_buffer, idVehicle)
+      var resize_image_buffer = await sharp(req.file.buffer).resize(300, 300, { fit: sharp.fit.inside, }).jpeg({ quality: 70 }).toBuffer()
+      const result_save_image = await WriteImage(resize_image_buffer, idVehicle) 
       if (result_save_image.result){
         return res.status(200).json({ result: result_query.data, status: true })
       } else {

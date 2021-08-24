@@ -108,7 +108,7 @@ router.put('/', auth.required, async function(req, res, next) {
     if (req.file !== undefined){
 
       var idcard = req.body.idcard
-      var resize_image_buffer = await sharp(req.file.buffer).resize({ height: 150 }).jpeg({ quality: 100 }).toBuffer()
+      var resize_image_buffer = await sharp(req.file.buffer).resize(300, 300, { fit: sharp.fit.inside, }).jpeg({ quality: 100 }).toBuffer()
       const result_save_image = await WriteImage(resize_image_buffer, idcard)
       if (result_save_image.result){
         return res.status(200).json({ result: result_query.data, status: true })
