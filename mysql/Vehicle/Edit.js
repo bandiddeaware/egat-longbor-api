@@ -15,7 +15,6 @@ const check_classification = async (classification, conn) => {
       INSERT INTO vehicle_classification SET    
         type = "${name}"
     `
-    console.log(`SELECT COUNT(*) AS count FROM vehicle_classification WHERE type LIKE "${name}"`)
     const [check_tb_type_dup] = await conn.query(`SELECT COUNT(*) AS count FROM vehicle_classification WHERE type LIKE "${name}"`)
     if (check_tb_type_dup[0].count > 0){
       return {
@@ -31,7 +30,6 @@ const check_classification = async (classification, conn) => {
 }
 
 const check_brand_id = async (brand_id, conn) => {
-  console.log(brand_id)
   var check = chcekNumuric(brand_id)
   if (check){
     return {
@@ -46,7 +44,6 @@ const check_brand_id = async (brand_id, conn) => {
         name = "${name}"
     `
     const [check_tb_brand_dup] = await conn.query(`SELECT COUNT(*) AS count FROM vehicle_brand WHERE name LIKE "${name}"`)
-    console.log(check_tb_brand_dup[0].count)
     if (check_tb_brand_dup[0].count > 0){
       return {
         status: false,
@@ -188,7 +185,6 @@ module.exports = async (
         ${ str  }
       WHERE id = ${vehicle_id};
     `
-    console.log(query)
     const [rows] = await conn.query(query)
     conn.end();
     return {

@@ -14,16 +14,6 @@ const Find = async (
 ) => {
   const conn = await mysql.connection()
   try {
-    console.log(  card_id,
-      license,
-      uhf_id,
-      mifare_id,
-      company_name,
-      is_card_number,
-      is_expire_card,
-      is_accept_mine,
-      offset,
-      limit )
     const WhereParameter = (
       card_id,
       license,
@@ -235,7 +225,6 @@ const Find = async (
     
       LIMIT ${limit} OFFSET ${offset}
     `
-    console.log(query_string)
     const [rows] = await conn.query(query_string)
     var query_string = `
       SELECT 

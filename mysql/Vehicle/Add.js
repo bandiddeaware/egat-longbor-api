@@ -2,7 +2,6 @@ var mysql = require('../connection')
 var chcekNumuric = require("../../commons/checkNumuric")
 
 const check_classification = async (classification, conn) => {
-  console.log(classification)
   var check = chcekNumuric(classification)
   if (check){
     return {
