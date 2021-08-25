@@ -157,28 +157,56 @@ const { parsed: envs } = result;
 
 
 
-var mysql = require('./mysql/connection')
+// var mysql = require('./mysql/connection')
 
-async function test() {
-  const conn = await mysql.connection()
-  const [result_person] = await conn.query(`
-    select id from person where 1    
-  `)
-  var csv = ''
-  result_person.forEach((item) => {
-    csv += item.id + ","
-  })
-  console.log(csv)
-  // var this_person = []
-  // result_person.forEach((item, index) => {
-  //   this_person.push(`SELECT aspl.station_id as station_id FROM assembly_point_log AS aspl WHERE aspl.person_id = "${item.person_id}" ORDER BY aspl.access_time DESC LIMIT 1 OFFSET 0`)
-  // })
-  // console.log(this_person)
-  // const result = await find_assambly_point(conn, this_person)
-  // // console.log("station_id: ",result[0][0][0].station_id)
-  // // console.log("station_id: ",result[1][0][0].station_id)
-  // // console.log("station_id: ",result[2][0][0].station_id)
-  // result.forEach(i => console.log("station_id: ", i[0][0].station_id))
-}
+// async function test() {
+//   const conn = await mysql.connection()
+//   const [result_person] = await conn.query(`
+//     select id from person where 1    
+//   `)
+//   var csv = ''
+//   result_person.forEach((item) => {
+//     csv += item.id + ","
+//   })
+//   console.log(csv)
+//   // var this_person = []
+//   // result_person.forEach((item, index) => {
+//   //   this_person.push(`SELECT aspl.station_id as station_id FROM assembly_point_log AS aspl WHERE aspl.person_id = "${item.person_id}" ORDER BY aspl.access_time DESC LIMIT 1 OFFSET 0`)
+//   // })
+//   // console.log(this_person)
+//   // const result = await find_assambly_point(conn, this_person)
+//   // // console.log("station_id: ",result[0][0][0].station_id)
+//   // // console.log("station_id: ",result[1][0][0].station_id)
+//   // // console.log("station_id: ",result[2][0][0].station_id)
+//   // result.forEach(i => console.log("station_id: ", i[0][0].station_id))
+// }
 
-test()
+// test()
+
+var axios = require('axios');
+var qs = require('qs');
+var data = qs.stringify({
+  'action': 'Login',
+  'akey': '9670db0eb2a07bed157f6fba61974e15',
+  'eno': '593403',
+  'pwd': '$412fdsa$',
+  'ip': '127.0.0.1',
+  'type': 'json' 
+});
+var config = {
+  method: 'post',
+  url: 'https://edms.egat.co.th/itpservice/authapi/authapi.php',
+  headers: { 
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTYzMDEzMjYyMiwiaWF0IjoxNjI5MjY4NjIyfQ.GGDqAfmgLNzUt9Z5tIkYczjYcxMUfy1xKkRsK158FnE', 
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
