@@ -85,7 +85,7 @@ const FindPerson = async (
         
         ps.check_in_at IS NOT NULL AND 
         ps.check_out_at IS NOT NULL AND
-        ps.asbp_checked_at IS NOT NULL AND 
+        
 
         ${ (is_in_assambly_point !== undefined ? `ps.asbp_checked_at > ps.check_in_at AND ` : ``) }
 
@@ -146,6 +146,7 @@ const FindPerson = async (
       
       ps.check_in_at IS NOT NULL AND 
       ps.check_out_at IS NOT NULL AND
+      
       
       ${ (is_in_assambly_point !== undefined ? `ps.asbp_checked_at > ps.check_in_at AND ` : ``) }
 
