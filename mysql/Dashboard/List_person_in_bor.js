@@ -142,7 +142,7 @@ const FindPerson = async (
       ON cp.id = ps.company_id
 
     WHERE 
-      ps.check_in_at > ps.check_out_at AND 
+      ((ps.check_in_at > ps.check_out_at) OR (ps.check_in_at IS NOT NULL AND ps.check_out_at IS NULL)) AND 
       
       ps.check_in_at IS NOT NULL AND 
       ps.check_out_at IS NOT NULL AND
