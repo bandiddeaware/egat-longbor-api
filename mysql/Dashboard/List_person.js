@@ -255,7 +255,6 @@ const FindLog = async (
 
       LIMIT ${limit} OFFSET ${offset}
     `
-    console.log(query_string_list_person)
     const [list_person] = await conn.query(query_string_list_person,[ 
       start_time, stop_time,
     ])

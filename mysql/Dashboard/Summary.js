@@ -124,6 +124,8 @@ const TatalPersonVehicle = async (
         
         ps.check_in_at IS NOT NULL AND 
 
+        ps.check_in_at BETWEEN "${start_time}" AND "${end_time}" AND
+
         ps.card_id IS NOT NULL
     `
     const [length] = await conn.query(query_string_length)
@@ -138,7 +140,6 @@ const TatalPersonVehicle = async (
     summary_gate_4[0].name = 'ด่านสายพาน'
     summary_gate_4[0].station_id = 4
     summary[0].postion = [summary_gate_1[0], summary_gate_2[0], summary_gate_3[0], summary_gate_4[0],]
-    console.log(length[0])
     summary[0].in_point = length[0].LENGTH
     conn.end();
     return {
