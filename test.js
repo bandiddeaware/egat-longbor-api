@@ -183,30 +183,75 @@ const { parsed: envs } = result;
 
 // test()
 
-var axios = require('axios');
-var qs = require('qs');
-var data = qs.stringify({
-  'action': 'Login',
-  'akey': '9670db0eb2a07bed157f6fba61974e15',
-  'eno': '593403',
-  'pwd': '$412fdsa$',
-  'ip': '127.0.0.1',
-  'type': 'json' 
-});
-var config = {
-  method: 'post',
-  url: 'https://edms.egat.co.th/itpservice/authapi/authapi.php',
-  headers: { 
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTYzMDEzMjYyMiwiaWF0IjoxNjI5MjY4NjIyfQ.GGDqAfmgLNzUt9Z5tIkYczjYcxMUfy1xKkRsK158FnE', 
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  data : data
-};
+// var axios = require('axios');
+// var qs = require('qs');
+// var data = qs.stringify({
+//   'action': 'Login',
+//   'akey': '9670db0eb2a07bed157f6fba61974e15',
+//   'eno': '593403',
+//   'pwd': '$412fdsa$',
+//   'ip': '127.0.0.1',
+//   'type': 'json' 
+// });
+// var config = {
+//   method: 'post',
+//   url: 'https://edms.egat.co.th/itpservice/authapi/authapi.php',
+//   headers: { 
+//     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInR5cGUiOiJhZG1pbiIsImV4cCI6MTYzMDEzMjYyMiwiaWF0IjoxNjI5MjY4NjIyfQ.GGDqAfmgLNzUt9Z5tIkYczjYcxMUfy1xKkRsK158FnE', 
+//     'Content-Type': 'application/x-www-form-urlencoded'
+//   },
+//   data : data
+// };
 
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
+// axios(config)
+// .then(function (response) {
+//   console.log(JSON.stringify(response.data));
+// })
+// .catch(function (error) {
+//   console.log(error);
+// });
+
+
+
+const mqtt = require("mqtt")
+var config = require("./mysql/db.mysql.config")
+
+async function fn(topic, message) {
+  try {
+    var clientMQTT = mqtt.connect(config.mqtt.ip, {
+      port: Number(config.mqtt.port),
+      host: config.mqtt.ip,
+      clientId: config.mqtt.client_id,
+      username: config.mqtt.user,
+      password: config.mqtt.pass,
+      keepalive: 60,
+      reconnectPeriod: 1000,
+      protocolId: 'MQIsdp',
+      protocolVersion: 3,
+      clean: true,
+      encoding: 'utf8'
+    })
+    console.log(topic, message)
+    var mqtt_ = [
+      {
+        topic: 'acl/controller/1/assemblyPoint/announce',
+        message: "5555"
+      },{
+        topic: 'acl/controller/2/assemblyPoint/announce',
+        message: "6666"
+      },
+    ]
+    clientMQTT.on('connect', () => {
+      console.log('connected . . . ')
+      Promise.all(mqtt_.map(q => {
+        clientMQTT.publish(q.topic, q.message)
+      }));
+      // clientMQTT.end()
+    })
+    // return result
+  }catch (e) {
+    return e
+  }
+}
+
+fn("acl/controller/1/assemblyPoint/announce", "hello2 555555")
