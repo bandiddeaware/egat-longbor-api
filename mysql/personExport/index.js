@@ -13,6 +13,7 @@ var ZipCsvPicture = require("./lib/zipFile")
 var genCard = require("./lib/genCardid")
 var insertCard = require("./lib/insertCard")
 var updatePerson = require("./lib/updatePerson")
+var update_card_expired = require("./lib/check_card_expired")
 // var checkNull = require("./lib/checkCardidIsNull")
 // var checkValPerson = require("./lib/checkPersonMatchInTable")
 
@@ -37,15 +38,20 @@ module.exports = async (
   //     data: "ไม่พบบุคคลที่ส่งมาโปรดตรวจสอบ"
   //   }
   // }
-  
+
   // =============== get card id ================================
   console.log(person_id)
   var card_id = await genCard(person_id, value_person.length)
   console.log("card_id : ", card_id)
+
   // =============== insert card id =============================
   if (card_id.length > 0){
     var insert_card = await insertCard(card_id)
     console.log(insert_card)
+    
+    // =========== update card_expired on person table ============
+    await update_card_expired(person_id)
+
     if (insert_card.data.affectedRows !== card_id.length){
       return {
         isError: true, 
