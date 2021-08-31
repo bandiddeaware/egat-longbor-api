@@ -1,9 +1,11 @@
 var mysql = require('../connection')
+var mqtt = require("./lib/mqtt")
+var config = require("./../db.mysql.config")
 
 module.exports = async (data) => {
   const conn = await mysql.connection()
   try {
-
+    var mqtt_setup = []
     // find assambly and set item
     var query = `SELECT assambly_id FROM group_message WHERE group_message.group = ${data.msg_id}`
     const [find] = await conn.query(query)
@@ -19,6 +21,11 @@ module.exports = async (data) => {
       ass_item.forEach(element => {
         when += ` WHEN ${element} THEN NULL
         `
+        var topic = config.mqtt.main_topic.split("{{STATION_POINT}}")
+        mqtt_setup.push({
+          topic: topic[0] + element + topic[1],
+          message: ""
+        })
       });
       var query = `
         UPDATE group_message AS gm SET gm.group = CASE assambly_id
@@ -32,10 +39,13 @@ module.exports = async (data) => {
       var query = `DELETE FROM message WHERE id = ${data.msg_id}`
       const [result] = await conn.query(query)
 
-      return {
-        isError: false,
-        data: result,
-      } 
+      const mqtt_result = await mqtt(mqtt_setup)
+      if (mqtt_result.status){
+        return {
+          isError: false,
+          data: update,
+        } 
+      }
     }
 
     conn.end();
