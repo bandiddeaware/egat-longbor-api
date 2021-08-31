@@ -118,6 +118,10 @@ router.patch('/', auth.required, async function(req, res, next) {
   )
   if (result_query.isError === false){
     if (req.file !== undefined){
+      var type_file = req.file.mimetype.split("/")[0]
+      if (type_file !== "image"){
+        return res.status(400).json({errors: {message: "กรุณาเลือกไฟล์รูปเท่านั้น"}});
+      }
       var idcard = req.body.idcard
       var resize_image_buffer = await sharp(req.file.buffer).resize(300, 300, { fit: sharp.fit.inside, }).jpeg({ quality: 100 }).toBuffer()
       const result_save_image = await WriteImage(resize_image_buffer, idcard)

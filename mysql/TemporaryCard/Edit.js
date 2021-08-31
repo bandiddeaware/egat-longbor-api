@@ -71,7 +71,6 @@ const updateCard = async (card_id, conn) => {
   // check missing card
   var quer = `select status from card where id = "${card_id}"`
   const [rows_rows] = await conn.query(quer)
-
   if (rows_rows[0].status === 0 ){
     // update status card
     var update = `
@@ -141,7 +140,7 @@ const Edit = async (
     }
 
     // update status card "active"
-    if (card_id !== undefined && card_id !== null){
+    if (card_id !== undefined && card_id !== null && card_id !== ""){
       updateCard(card_id, conn )
     }
 
