@@ -4,7 +4,7 @@ var auth = require("./../auth")
 var hookapi = require("./../../hook")
 
 router.post('/hook/hrapi', auth.required, async function(req, res, next) {
-  const res_ = await hookapi.hookHR(req.body.mifare)
+  const res_ = await hookapi.hookHR(req.body.mifare, req.body.uhf)
   return res.status(200).json(res_.data);
 })
 module.exports = router;

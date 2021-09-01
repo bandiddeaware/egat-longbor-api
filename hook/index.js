@@ -29,7 +29,35 @@ const login = async (user, pass) => {
   return res
 }
 
-const hookHR = async (mifare) => {
+const FindCard = async (egat_code, conn) => {
+  var query = `SELECT * FROM card WHERE id = 1000${egat_code}`
+  var [row] = await conn.query(query)
+  if (row.length > 0){
+    return true
+  }else {
+    return false
+  }
+}
+
+const ManageCard = async (egat_code, mifare, uhf, conn) => {
+  try {
+    var query = `
+      INSERT INTO card SET
+        id = 1000${egat_code},
+        mifare_id = "${mifare}",
+        uhf_id = "${uhf}",
+        type = 1,
+        status = 1
+    `
+    console.log(query)
+    var [row] = await conn.query(query)
+    return true
+  }catch(e){
+    return false
+  }
+}
+
+const hookHR = async (mifare, uhf) => {
   var config = {
     method: 'get',
     url: process.env.HOOKHR_URL + `?filter[RFIDCode]=${mifare}&include=person`,
@@ -63,6 +91,15 @@ const hookHR = async (mifare) => {
 
     const [check_person] = await conn.query(`SELECT COUNT(*) AS checked FROM person WHERE person.egat_person_code = ${update.egat_code}`)
     if (check_person[0].checked === 0){
+
+      // ============================== gen card id ======================================
+      var find_card_available = await FindCard(update.egat_code, conn)
+
+      // ============================== Insert card id ===================================
+      if (!find_card_available){
+        const resss = await ManageCard(update.egat_code, mifare, uhf, conn)
+      }
+
       var query = `
         INSERT INTO person SET 
           name_title = "${update.title}",
@@ -75,9 +112,9 @@ const hookHR = async (mifare) => {
           type = 1,
           created_at = "${parseDateTime(new Date())}",
           modified_at = "${parseDateTime(new Date())}",
-          mine_permit = 1
+          mine_permit = 1,
+          card_id = 1000${update.egat_code}
       `
-      console.log(query)
       const [insert_person] = await conn.query(query)
       if (insert_person.affectedRows === 1){
         var res__ = {}
