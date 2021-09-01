@@ -5,6 +5,16 @@ var config = require("./../db.mysql.config")
 module.exports = async (data) => {
   const conn = await mysql.connection()
   try {
+
+    var query = `SELECT COUNT(*) AS find_msg FROM message WHERE id = ${data.msg_id}`
+    const [find_msg] = await conn.query(query)
+    if (find_msg[0].find_msg === 0){
+      return {
+        isError: true,
+        data: "ไม่พบไอดีกรุณาตรวจสอบข้อมูล",
+      }
+    }
+
     var mqtt_setup = []
     // find assambly and set item
     var query = `SELECT assambly_id FROM group_message WHERE group_message.group = ${data.msg_id}`
