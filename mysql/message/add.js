@@ -11,6 +11,16 @@ async function fire_mqtt_all(mqtt_) {
 module.exports = async (data) => {
   const conn = await mysql.connection()
   try {
+
+    var query = `SELECT COUNT(*) AS find_null FROM group_message WHERE group_message.group IS NULL `
+    const [isNull] = await conn.query(query)
+    if (isNull[0].find_null === 0){
+      return {
+        isError: false,
+        data: "ไม่สามารถเพิ่มประกาศได้แล้ว",
+      }
+    }
+
     var query = `INSERT INTO message SET message = "${data.message}"`
     const [result] = await conn.query(query)
     var insertID = result.insertId
