@@ -13,7 +13,7 @@ module.exports = async (data) => {
   try {
     if (data.assambly.length === 0) {
       return {
-        isError: false,
+        isError: true,
         data: "คุณยังไม่ได้เลือกจุดรวมพล",
       }
     }
@@ -27,7 +27,7 @@ module.exports = async (data) => {
     })
     if (isData){
       return {
-        isError: false,
+        isError: true,
         data: "จุดรวมพลได้ถูกใช้กับประกาศอื่นแล้ว",
       }
     }
