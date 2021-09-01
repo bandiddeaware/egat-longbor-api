@@ -8,7 +8,7 @@ router.delete('/', auth.required, async function(req, res, next) {
   if (result.isError === false){
     return res.status(200).json({ result: result.data, status: true })
   } else {
-    return res.status(400).json({ result: result.data, status: true })
+    return res.status(400).json({ result: result.data, status: false })
   }
 })
 module.exports = router;
