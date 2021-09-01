@@ -14,6 +14,8 @@ router.use("/", require("./vehicle"))
 router.use("/", require("./list_faction"))
 router.use("/", require("./list_contract"))
 router.use("/", require("./message"))
+router.use("/", require("./hookHR"))
+
 // for test
 // router.use("/", require("./test_zip"))
 
