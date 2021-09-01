@@ -3,7 +3,7 @@ var mysql = require('../connection')
 module.exports = async () => {
   const conn = await mysql.connection()
   try {
-    var file_msg = ` SELECT * FROM message WHERE 1 `
+    var file_msg = ` SELECT * FROM message WHERE 1 ORDER BY id DESC `
     const [message] = await conn.query(file_msg)
     var group_msg = `
     SELECT 
