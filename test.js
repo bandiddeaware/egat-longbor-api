@@ -213,45 +213,48 @@ const { parsed: envs } = result;
 
 
 
-const mqtt = require("mqtt")
-var config = require("./mysql/db.mysql.config")
+// const mqtt = require("mqtt")
+// var config = require("./mysql/db.mysql.config")
 
-async function fn(topic, message) {
-  try {
-    var clientMQTT = mqtt.connect(config.mqtt.ip, {
-      port: Number(config.mqtt.port),
-      host: config.mqtt.ip,
-      clientId: config.mqtt.client_id,
-      username: config.mqtt.user,
-      password: config.mqtt.pass,
-      keepalive: 60,
-      reconnectPeriod: 1000,
-      protocolId: 'MQIsdp',
-      protocolVersion: 3,
-      clean: true,
-      encoding: 'utf8'
-    })
-    console.log(topic, message)
-    var mqtt_ = [
-      {
-        topic: 'acl/controller/1/assemblyPoint/announce',
-        message: "5555"
-      },{
-        topic: 'acl/controller/2/assemblyPoint/announce',
-        message: "6666"
-      },
-    ]
-    clientMQTT.on('connect', () => {
-      console.log('connected . . . ')
-      Promise.all(mqtt_.map(q => {
-        clientMQTT.publish(q.topic, q.message)
-      }));
-      // clientMQTT.end()
-    })
-    // return result
-  }catch (e) {
-    return e
-  }
-}
+// async function fn(topic, message) {
+//   try {
+//     var clientMQTT = mqtt.connect(config.mqtt.ip, {
+//       port: Number(config.mqtt.port),
+//       host: config.mqtt.ip,
+//       clientId: config.mqtt.client_id,
+//       username: config.mqtt.user,
+//       password: config.mqtt.pass,
+//       keepalive: 60,
+//       reconnectPeriod: 1000,
+//       protocolId: 'MQIsdp',
+//       protocolVersion: 3,
+//       clean: true,
+//       encoding: 'utf8'
+//     })
+//     console.log(topic, message)
+//     var mqtt_ = [
+//       {
+//         topic: 'acl/controller/1/assemblyPoint/announce',
+//         message: "5555"
+//       },{
+//         topic: 'acl/controller/2/assemblyPoint/announce',
+//         message: "6666"
+//       },
+//     ]
+//     clientMQTT.on('connect', () => {
+//       console.log('connected . . . ')
+//       Promise.all(mqtt_.map(q => {
+//         clientMQTT.publish(q.topic, q.message)
+//       }));
+//       // clientMQTT.end()
+//     })
+//     // return result
+//   }catch (e) {
+//     return e
+//   }
+// }
 
-fn("acl/controller/1/assemblyPoint/announce", "hello2 555555")
+// fn("acl/controller/1/assemblyPoint/announce", "hello2 555555")
+
+
+console.log(process.env["MQTTCLIENTID_POINT_" + 5])

@@ -1,12 +1,6 @@
 var mysql = require('../connection')
-var mqtt = require("./lib/mqtt")
+var mqtt = require("./lib/mqtt_multi_broker")
 var config = require("./../db.mysql.config")
-
-async function fire_mqtt_all(mqtt_) {
-  return Promise.all(mqtt_.map(q => {
-    return mqtt(q.topic, q.message)
-  }));
-}
 
 module.exports = async (data) => {
   const conn = await mysql.connection()
@@ -41,8 +35,9 @@ module.exports = async (data) => {
       data.assambly.forEach(element => {
         when += ` WHEN ${element} THEN ${insertID} 
         `
-        var topic = config.mqtt.main_topic.split("{{STATION_POINT}}")
+        var topic = process.env.MQTTTOPIC_POINT_ALL.split("{{STATION_POINT}}")
         mqtt_setup.push({
+          broker: element,
           topic: topic[0] + element + topic[1],
           message: data.message
         })
@@ -55,25 +50,32 @@ module.exports = async (data) => {
       `
       const [update] = await conn.query(query)
 
+      // // fire mqtt to assambly point
+      // async function find_assambly_point(conn, query) {
+      //   return Promise.all(query.map(q => {
+      //     return conn.query(q)
+      //   }));
+      // }
       const mqtt_result = await mqtt(mqtt_setup)
-      if (mqtt_result.status){
-        return {
-          isError: false,
-          data: update,
-        } 
-      }
+      return {
+        isError: false,
+        data: update,
+        mqtt: mqtt_result
+      } 
     }
 
     conn.end();
     return {
       isError: false,
       data: group_msg,
+      mqtt: {}
     }
   }catch(e) {
     conn.end();
     return {
       isError: true,
-      data: e
+      data: e,
+      mqtt: {}
     }
   }
 };

@@ -2,6 +2,7 @@ var axios = require('axios');
 var qs = require('qs');
 var mysql = require('../mysql/connection')
 var parseDateTime = require('../commons/parseDateTime')
+var parseDate = require('../commons/parseDate')
 
 const login = async (user, pass) => {
   var data = qs.stringify({
@@ -49,7 +50,6 @@ const ManageCard = async (egat_code, mifare, uhf, conn) => {
         type = 1,
         status = 1
     `
-    console.log(query)
     var [row] = await conn.query(query)
     return true
   }catch(e){
@@ -86,6 +86,7 @@ const hookHR = async (mifare, uhf) => {
       title: res.data.data[0].person.person_thai_prefix_name,
       firstname: res.data.data[0].person.person_thai_thai_firstname,
       lastname: res.data.data[0].person.person_thai_thai_lastname,
+      expired: res.data.data[0].person.person_retirement_date,
     }
     const conn = await mysql.connection()
 
@@ -99,7 +100,6 @@ const hookHR = async (mifare, uhf) => {
       if (!find_card_available){
         const resss = await ManageCard(update.egat_code, mifare, uhf, conn)
       }
-
       var query = `
         INSERT INTO person SET 
           name_title = "${update.title}",
@@ -113,7 +113,8 @@ const hookHR = async (mifare, uhf) => {
           created_at = "${parseDateTime(new Date())}",
           modified_at = "${parseDateTime(new Date())}",
           mine_permit = 1,
-          card_id = 1000${update.egat_code}
+          card_id = 1000${update.egat_code},
+          card_expired = "${parseDate(new Date(update.expired))}"
       `
       const [insert_person] = await conn.query(query)
       if (insert_person.affectedRows === 1){
