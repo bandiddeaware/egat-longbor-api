@@ -41,6 +41,8 @@ const FindLog = async (
       query_sort = 'ps.firstname'
     }else if (sort_type === 'card_type'){
       query_sort = 'pt.description'
+    }else if (sort_type === 'channel_id') {
+      query_sort = 'acl.ch_id'
     } else {
       query_sort = 'acl.access_time'
     }
@@ -207,7 +209,8 @@ const FindLog = async (
         pt.description AS card_type,
         cn.name AS company_name,
         acl.access_result AS access_result,
-        acl.entrance_id AS station_id
+        acl.entrance_id AS station_id,
+        acl.ch_id AS channel_id
 
       FROM access_log as acl
       

@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var auth = require("./../../auth")
 
-var add_message = require("./../../../mysql/message/delete")
+var add_message = require("./../../../mysql/message/new_delete")
 
 router.delete('/', auth.required, async function(req, res, next) {
   const result = await add_message(req.body)

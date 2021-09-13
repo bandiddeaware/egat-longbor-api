@@ -4,3 +4,9 @@ mosquitto_sub -h 10.249.149.228 -v -t 'acl/controller/7/assemblyPoint/announce'
 mosquitto_sub -h 10.249.149.231 -v -t 'acl/controller/8/assemblyPoint/announce'
 mosquitto_sub -h 10.249.149.234 -v -t 'acl/controller/9/assemblyPoint/announce'
 mosquitto_sub -h 10.249.149.237 -v -t 'acl/controller/10/assemblyPoint/announce'
+
+
+
+mosquitto_sub -h 10.249.149.222 -v -t 'acl/controller/5/assemblyPoint/announce' & 
+mosquitto_sub -h 10.249.149.225 -v -t 'acl/controller/6/assemblyPoint/announce' & mosquitto_sub -h 10.249.149.228 -v -t 'acl/controller/7/assemblyPoint/announce' & mosquitto_sub -h 10.249.149.231 -v -t 'acl/controller/8/assemblyPoint/announce' & mosquitto_sub -h 10.249.149.234 -v -t 'acl/controller/9/assemblyPoint/announce' 
+& mosquitto_sub -h 10.249.149.237 -v -t 'acl/controller/10/assemblyPoint/announce'

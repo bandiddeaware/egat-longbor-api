@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var auth = require("./../../auth")
 
-var add_message = require("./../../../mysql/message/add")
+var add_message = require("./../../../mysql/message/new_add")
 
 router.put('/', auth.required, async function(req, res, next) {
   const result = await add_message(req.body)
