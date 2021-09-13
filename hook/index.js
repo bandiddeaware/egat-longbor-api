@@ -40,7 +40,7 @@ const FindCard = async (egat_code, conn) => {
   }
 }
 
-const ManageCard = async (egat_code, mifare, uhf, conn) => {
+const ManageCardInsert = async (egat_code, mifare, uhf, conn) => {
   try {
     var query = `
       INSERT INTO card SET
@@ -49,6 +49,24 @@ const ManageCard = async (egat_code, mifare, uhf, conn) => {
         uhf_id = "${uhf}",
         type = 1,
         status = 1
+    `
+    var [row] = await conn.query(query)
+    return true
+  }catch(e){
+    return false
+  }
+}
+
+const ManageCardUpdate = async (egat_code, mifare, uhf, conn)  => {
+  try {
+    var query = `
+      UPDATE card SET
+        id = 1000${egat_code},
+        mifare_id = "${mifare}",
+        uhf_id = "${uhf}",
+        type = 1,
+        status = 1
+      WHERE id = 1000${egat_code}
     `
     var [row] = await conn.query(query)
     return true
@@ -92,14 +110,19 @@ const hookHR = async (mifare, uhf) => {
 
     const [check_person] = await conn.query(`SELECT COUNT(*) AS checked FROM person WHERE person.egat_person_code = ${update.egat_code}`)
     if (check_person[0].checked === 0){
-
-      // ============================== gen card id ======================================
+      // insert egat person
+      // ================================================================================
       var find_card_available = await FindCard(update.egat_code, conn)
 
-      // ============================== Insert card id ===================================
+      // ============================== Check card id ===================================
       if (!find_card_available){
-        const resss = await ManageCard(update.egat_code, mifare, uhf, conn)
+        // insert card
+        const resss = await ManageCardInsert(update.egat_code, mifare, uhf, conn)
+      } else {
+        // update card
+        const resss = await ManageCardUpdate(update.egat_code, mifare, uhf, conn)
       }
+      // insert egat person here
       var query = `
         INSERT INTO person SET 
           name_title = "${update.title}",
@@ -122,6 +145,46 @@ const hookHR = async (mifare, uhf) => {
         res__.data = {
           data: res.data,
           message: "insert person successed",
+        }
+        return res__
+      }
+    } else {
+      // update egat person
+      // ================================================================================
+      var find_card_available = await FindCard(update.egat_code, conn)
+
+      // ============================== Check card id ===================================
+      if (!find_card_available){
+        // insert card
+        const resss = await ManageCardInsert(update.egat_code, mifare, uhf, conn)
+      } else {
+        // update card
+        const resss = await ManageCardUpdate(update.egat_code, mifare, uhf, conn)
+      }
+      // update egat person
+      var query = `
+        UPDATE person SET 
+          name_title = "${update.title}",
+          sex = "${(update.title === "นาย" ? "ชาย": (update.title === "นาง" || update.title === "นางสาว" ? "หญิง": ""))}",
+          firstname = "${update.firstname}",
+          lastname = "${update.lastname}",
+          egat_person_code = "${update.egat_code}",
+          picture = "${update.egat_code}.jpg",
+          company_id = 0,
+          type = 1,
+          created_at = "${parseDateTime(new Date())}",
+          modified_at = "${parseDateTime(new Date())}",
+          mine_permit = 1,
+          card_id = 1000${update.egat_code},
+          card_expired = "${parseDate(new Date(update.expired))}"
+        where egat_person_code = "${update.egat_code}"
+      `
+      const [update_person] = await conn.query(query)
+      if (update_person.affectedRows === 1){
+        var res__ = {}
+        res__.data = {
+          data: res.data,
+          message: "update person successed",
         }
         return res__
       }
