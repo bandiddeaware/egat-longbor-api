@@ -210,7 +210,7 @@ const FindLog = async (
         cn.name AS company_name,
         acl.access_result AS access_result,
         acl.entrance_id AS station_id,
-        acl.ch_id AS channel_id
+        acl.ch_type AS channel_id
 
       FROM access_log as acl
       
