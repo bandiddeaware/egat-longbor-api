@@ -95,6 +95,7 @@ const hookHR = async (mifare, uhf) => {
     return {data: {
       data: res.data,
       message: "not found person",
+      status: false,
     }}
   }
 
@@ -145,6 +146,7 @@ const hookHR = async (mifare, uhf) => {
         res__.data = {
           data: res.data,
           message: "insert person successed",
+          status: true,
         }
         return res__
       }
@@ -185,22 +187,20 @@ const hookHR = async (mifare, uhf) => {
         res__.data = {
           data: res.data,
           message: "update person successed",
+          status: true
         }
         return res__
       }
     }
   }catch (e){
     var res__ = {}
-    res__.data = e
+    res__.data = {
+      data: e,
+      message: "error",
+      status: false
+    }
     return res__
   }
-  
-  var res__ = {}
-  res__.data = {
-    data: res.data,
-    message: "person already have",
-  }
-  return res__
 }
 
 module.exports = {
