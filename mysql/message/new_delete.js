@@ -28,8 +28,6 @@ module.exports = async (data) => {
       var where = ass_item.join()
       var when = ``
       ass_item.forEach(element => {
-        when += ` WHEN ${element} THEN NULL
-        `
         var topic = process.env.MQTTTOPIC_POINT_ALL.split("{{STATION_POINT}}")
         mqtt_setup.push({
           broker: element , 
@@ -37,21 +35,41 @@ module.exports = async (data) => {
           message: ""
         })
       });
-      var query = `
-        UPDATE group_message AS gm SET gm.group = CASE assambly_id
-          ${when}
-        ELSE assambly_id END
-        WHERE assambly_id IN(${where});
-      `
-      const [update] = await conn.query(query)
+
+      // clear data assambly point 
+      const mqtt_result = await mqtt(mqtt_setup)
+      var clear_msg_all = true
+      var new_ass_item = []
+      mqtt_result.forEach((e) => {
+        if (e.status === true){
+          new_ass_item.push(e.assambly_id)
+        } else {
+          clear_msg_all = false
+        }
+      })
+
+      new_ass_item.forEach(element => {
+        when += ` WHEN ${element} THEN NULL
+        `
+      });
+      if (new_ass_item.length !== 0) {
+        var query = `
+          UPDATE group_message AS gm SET gm.group = CASE assambly_id
+            ${when}
+          ELSE assambly_id END
+          WHERE assambly_id IN(${new_ass_item.join()});
+        `
+        const [update] = await conn.query(query)
+      }
 
       // delete item
-      var query = `DELETE FROM message WHERE id = ${data.msg_id}`
-      const [result] = await conn.query(query)
-      const mqtt_result = await mqtt(mqtt_setup)
+      if (clear_msg_all){
+        var query = `DELETE FROM message WHERE id = ${data.msg_id}`
+        const [result] = await conn.query(query)
+      }
+
       return {
         isError: false,
-        data: update,
         mqtt: mqtt_result
       } 
     }
