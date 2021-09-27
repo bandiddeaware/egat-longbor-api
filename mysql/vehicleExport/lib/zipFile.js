@@ -35,7 +35,7 @@ const findPicture = (person_image) => {
 
 module.exports = async (pic_file, csv) => {
   const zip = new AdmZip();
-  var content = `vehicle_id,model,license_plate,egat_plate,remark,picture,faction2_DIV,faction2_D_ABBR,name,type,card_id\n`
+  var content = `vehicle_id,model,license_plate,egat_plate,remark,picture,faction2_DIV,faction2_D_ABBR,type,card_id,company_id,company_name\n`
   csv.forEach((item) => {
     var csv_out = item.vehicle_id + ","
     csv_out += item.model + ","
@@ -45,9 +45,10 @@ module.exports = async (pic_file, csv) => {
     csv_out += item.picture + ","
     csv_out += item.faction2_DIV + ","
     csv_out += item.faction2_D_ABBR + ","
-    csv_out += item.name + ","
     csv_out += item.type + ","
-    csv_out += map_type_card((item.card_id).toString()) + "\n"
+    csv_out += map_type_card((item.card_id).toString()) + ","
+    csv_out += item.company_id + ","
+    csv_out += item.company_name + "\n"
     content = content.concat(csv_out)
   })
   pic_file = findPicture(pic_file)

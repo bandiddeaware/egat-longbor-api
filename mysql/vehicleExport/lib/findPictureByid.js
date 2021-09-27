@@ -13,7 +13,9 @@ const FindMultipleID = async (
         vhb.*,
         vct.*,
         vh.card_id as card_id,
-        IF(vh.image IS NULL OR vh.image = "", CONCAT(vh.id, ".jpg"), vh.image) as picture
+        IF(vh.image IS NULL OR vh.image = "", CONCAT(vh.id, ".jpg"), vh.image) as picture,
+        cp.id AS company_id,
+        cp.name AS company_name
       FROM vehicle AS vh
       
       LEFT JOIN company AS cp
