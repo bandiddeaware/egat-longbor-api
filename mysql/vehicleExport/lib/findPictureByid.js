@@ -15,7 +15,10 @@ const FindMultipleID = async (
         vh.card_id as card_id,
         IF(vh.image IS NULL OR vh.image = "", CONCAT(vh.id, ".jpg"), vh.image) as picture,
         cp.id AS company_id,
-        cp.name AS company_name
+        cp.name AS company_name,
+        pv.id as province_id,
+        pv.name_th as province_name
+        
       FROM vehicle AS vh
       
       LEFT JOIN company AS cp
@@ -29,6 +32,9 @@ const FindMultipleID = async (
       
       LEFT JOIN vehicle_classification AS vct
         ON vh.classification = vct.id
+      
+      LEFT JOIN tb_provinces AS pv
+        ON vh.province_id = pv.id
       
       WHERE vh.id IN ${multiple_id}
     `
