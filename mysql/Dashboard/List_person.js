@@ -24,6 +24,14 @@ const FindLog = async (
 ) => {
   const conn = await mysql.connection()
 
+  const searchBy_accDirection = (direction) => {
+    if (direction !== undefined) { 
+      return `acl.access_direction = ${direction} AND`
+    }else {
+      return ``
+    }
+  }
+
   const check_sort_type = (sort_type) => {
     var query_sort = ''
     // time
@@ -94,15 +102,27 @@ const FindLog = async (
     var query_out = ""
     var count = 0
     var q_arr = []
-    if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0`        + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
-    if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1`    + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
-    if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`         + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
-    if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3`      + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
-    if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4` + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
-    if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5`   + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0`        + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1`    + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2`         + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3`      + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4` + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5`   + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
 
-    if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`   + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
-    if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL` + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6`   + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+    // if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL` + (direction !== undefined ? ` AND acl.access_direction = ${direction}  OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2) `: ``) ); count++; }
+
+
+
+    if (ACCESS_GRANTED !== undefined) { q_arr.push(`acl.access_result = 0 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`); count++; }
+    if (PERMISSION_DENIED !== undefined) { q_arr.push(`acl.access_result = -1 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`     ); count++; }
+    if (CARD_EXPIRED !== undefined) { q_arr.push(`acl.access_result = -2 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`          ); count++; }
+    if (NO_CARD_EXISTED !== undefined) { q_arr.push(`acl.access_result = -3 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`       ); count++; }
+    if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`  ); count++; }
+    if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`    ); count++; }
+
+    if (PASSBACK_VIOLATION !== undefined) { q_arr.push(`acl.access_result = -6 OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`    ); count++; }
+    if (NOT_AVAILABLE_SYS !== undefined) { q_arr.push(`acl.access_result IS NULL OR ((acl.ch_type = 0 OR acl.ch_type = 1) AND acl.access_result = -4 AND acl.access_type = 2)`  ); count++; }
 
     if (q_arr.length === 0){
       return ''
@@ -191,6 +211,8 @@ const FindLog = async (
 
         ${(check_seach_1 ? ") AND ": "")}
 
+        ${searchBy_accDirection(direction)}
+
         acl.access_time BETWEEN ? AND ?
     `
     const [length] = await conn.query(query_string_length,[ 
@@ -251,6 +273,8 @@ const FindLog = async (
         )}
 
         ${(check_seach_1 ? ") AND ": "")}
+
+        ${searchBy_accDirection(direction)}
 
         acl.access_time BETWEEN "${start_time}" AND "${stop_time}"
       

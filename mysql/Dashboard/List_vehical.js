@@ -68,6 +68,15 @@ const FindLog = async (
     }
     return query_out
   }
+
+  const searchBy_accDirection = (direction) => {
+    if (direction !== undefined) { 
+      return `acl.access_direction = ${direction} AND`
+    }else {
+      return ``
+    }
+  }
+
   // ACCESS_GRANTED = 0;
   // PERMISSION_DENIED = -1;
   // CARD_EXPIRED = -2;
@@ -97,7 +106,7 @@ const FindLog = async (
     if (INVALID_CHANNEL_TYPE !== undefined) { q_arr.push(`acl.access_result = -4`); count++; }
     if (CARD_NOT_ACTIVATED !== undefined) { q_arr.push(`acl.access_result = -5 `); count++; }
 
-    if (direction !== undefined) { q_arr.push(`acl.access_direction = ${direction}`); count++; }
+    // if (direction !== undefined) { q_arr.push(`1 AND acl.access_direction = ${direction}`); count++; }
 
     if (q_arr.length === 0){
       return ''
@@ -189,8 +198,11 @@ const FindLog = async (
 
         ${(check_seach_1 ? ") AND ": "")}
 
+        ${searchBy_accDirection(direction)}
+
         acl.access_time BETWEEN ? AND ?
     `
+    console.log(query_string_length)
     const [length] = await conn.query(query_string_length,[ 
       start_time, stop_time,
     ])
@@ -258,6 +270,8 @@ const FindLog = async (
 
         ${(check_seach_1 ? ") AND ": "")}
 
+        ${searchBy_accDirection(direction)}
+
         acl.access_time BETWEEN ? AND ?
       
       
@@ -265,6 +279,39 @@ const FindLog = async (
       
       LIMIT ${limit} OFFSET ${offset}
     `
+    console.log(`
+        WHERE 
+        (acl.ch_type = 1) AND
+        
+        ${
+          WhereSearch(
+            // check_seach_1, 
+            check_seach_2
+          )
+        }
+
+        ${(check_seach_1 ? " ( ": "")}
+
+        ${
+          searchBy_status(
+            ACCESS_GRANTED ,
+            PERMISSION_DENIED ,
+            CARD_EXPIRED ,
+            INVALID_CHANNEL_TYPE ,
+            CARD_NOT_ACTIVATED ,
+          )
+        }
+
+        ${(check_seach_1 ? ") AND ": "")}
+
+        acl.access_time BETWEEN "${start_time}" AND "${stop_time}"
+      
+        ${searchBy_accDirection(direction)}
+        
+      ORDER BY ${check_sort_type(sort_type)} ${sort}
+      
+      LIMIT ${limit} OFFSET ${offset}
+    `)
     const [list_vehicle] = await conn.query(query_string_list_vehicle,[ 
       start_time, stop_time,
     ])
