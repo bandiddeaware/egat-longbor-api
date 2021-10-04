@@ -155,8 +155,6 @@ module.exports = async (
         ${(faction2_DIV === undefined || faction2_DIV === "undefined" ? ``: `faction2_DIV = "${faction2_DIV}",`)}
         ${(faction2_D_ABBR === undefined || faction2_D_ABBR === "undefined" ? ``: `faction2_D_ABBR = "${faction2_D_ABBR}",`)}
         ${(vehicle_type === undefined || vehicle_type === "undefined" ? ``: `type = "${vehicle_type}",`)}
-        
-        mine_permit = 1,
 
         ${(company_id === undefined ? ``: `company_id = "${company_id}"`)}
     `
