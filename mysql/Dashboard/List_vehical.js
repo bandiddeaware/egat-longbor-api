@@ -56,7 +56,12 @@ const FindLog = async (
     // if (license_plate !== undefined) { q_arr.push(`vh.license_plate = '${license_plate}'`); count++; }
     // if (province_id !== undefined) { q_arr.push(`vh.province_id = ${province_id}`); count++; }
 
-    if (license_plate !== undefined) { q_arr.push(`vh.license_plate LIKE '%${license_plate}%'`); count++; }
+    // if (license_plate !== undefined) { q_arr.push(`vh.license_plate LIKE '%${license_plate}%'`); count++; }
+
+    // check by card
+    // vh.license_plate LIKE '%${license_plate}%' OF vh.card_id LIKE '%${license_plate}%'
+    if (license_plate !== undefined) { q_arr.push(`vh.license_plate LIKE '%${license_plate}%' OR vh.card_id LIKE '%${license_plate}%'`); count++; }
+    
     if (province_name !== undefined) { q_arr.push(`pv.name_th LIKE '%${province_name}%'`); count++; }
 
     if (company_name !== undefined) { q_arr.push(`cn.name LIKE "%${company_name}%"`); count++; }

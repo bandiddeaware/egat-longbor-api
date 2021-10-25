@@ -48,7 +48,7 @@ const FindPerson = async (
     var count = 0
     var q_arr = []
     if (idcard !== undefined) { q_arr.push(`ps.idcard LIKE '%${idcard}%'`); count++; }
-    if (firstname !== undefined) { q_arr.push(`ps.firstname LIKE '%${firstname}%'`); count++; }
+    if (firstname !== undefined) { q_arr.push(`ps.firstname LIKE '%${firstname}%' OR ps.card_id LIKE '%${firstname}%'`); count++; }
     if (lastname !== undefined) { q_arr.push(`ps.lastname LIKE '%${lastname}%'`); count++; }
     if (company_name !== undefined) { q_arr.push(`cp.name LIKE "%${company_name}%"`); count++; }
     if (card_type !== undefined) { q_arr.push(`pt.id = ${card_type}`); count++; }

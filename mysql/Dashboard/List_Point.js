@@ -55,7 +55,7 @@ const FindLog = async (
     // if (firstname !== undefined) { q_arr.push(`ps.firstname = '${firstname}'`); count++; }
     // if (lastname !== undefined) { q_arr.push(`ps.lastname = '${lastname}'`); count++; }
     
-    if (firstname !== undefined) { q_arr.push(`ps.firstname LIKE '%${firstname}%'`); count++; }
+    if (firstname !== undefined) { q_arr.push(`ps.firstname LIKE '%${firstname}%' OR ps.card_id LIKE '%${firstname}%'`); count++; }
     if (lastname !== undefined) { q_arr.push(`ps.lastname LIKE '%${lastname}%'`); count++; }
 
     if (company_name !== undefined) { q_arr.push(`cn.name LIKE "%${company_name}%"`); count++; }
