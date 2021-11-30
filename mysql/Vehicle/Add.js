@@ -44,7 +44,6 @@ const check_brand_id = async (brand_id, conn) => {
       INSERT INTO vehicle_brand SET    
         name = "${name}"
     `
-    console.log(`SELECT COUNT(*) AS count FROM vehicle_brand WHERE name LIKE "${name}"`)
     const [check_tb_brand_dup] = await conn.query(`SELECT COUNT(*) AS count FROM vehicle_brand WHERE name LIKE "${name}"`)
     if (check_tb_brand_dup[0].count > 0){
       return {
