@@ -284,39 +284,6 @@ const FindLog = async (
       
       LIMIT ${limit} OFFSET ${offset}
     `
-    console.log(`
-        WHERE 
-        (acl.ch_type = 1) AND
-        
-        ${
-          WhereSearch(
-            // check_seach_1, 
-            check_seach_2
-          )
-        }
-
-        ${(check_seach_1 ? " ( ": "")}
-
-        ${
-          searchBy_status(
-            ACCESS_GRANTED ,
-            PERMISSION_DENIED ,
-            CARD_EXPIRED ,
-            INVALID_CHANNEL_TYPE ,
-            CARD_NOT_ACTIVATED ,
-          )
-        }
-
-        ${(check_seach_1 ? ") AND ": "")}
-
-        acl.access_time BETWEEN "${start_time}" AND "${stop_time}"
-      
-        ${searchBy_accDirection(direction)}
-        
-      ORDER BY ${check_sort_type(sort_type)} ${sort}
-      
-      LIMIT ${limit} OFFSET ${offset}
-    `)
     const [list_vehicle] = await conn.query(query_string_list_vehicle,[ 
       start_time, stop_time,
     ])
