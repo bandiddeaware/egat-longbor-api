@@ -1,5 +1,7 @@
 var mysql = require('../connection')
 
+var parseData = require("../../commons/parseDate")
+
 async function find_assambly_point(conn, query) {
   return Promise.all(query.map(q => {
     return conn.query(q)
@@ -61,6 +63,11 @@ const FindPerson = async (
     return query_out
   }
   try {
+
+    var today = new Date();
+    var tomorrow = new Date()
+    today.setDate(today.getDate() - 1);
+
     const query_string_length = `
       SELECT 
     
@@ -81,7 +88,7 @@ const FindPerson = async (
         ON cp.id = ps.company_id
 
       WHERE
-        ((ps.check_in_at > ps.check_out_at) OR (ps.check_in_at IS NOT NULL AND ps.check_out_at IS NULL)) AND 
+        ((ps.check_in_at > ps.check_out_at) OR (ps.check_in_at IS NOT NULL AND ps.check_out_at IS NULL)) AND ps.check_in_at BETWEEN '${parseData(today)} 17:00:00' AND '${parseData(tomorrow)} 17:00:00' AND
         
         ps.check_in_at IS NOT NULL AND 
         
@@ -141,7 +148,7 @@ const FindPerson = async (
       ON cp.id = ps.company_id
 
     WHERE 
-      ((ps.check_in_at > ps.check_out_at) OR (ps.check_in_at IS NOT NULL AND ps.check_out_at IS NULL)) AND 
+      ((ps.check_in_at > ps.check_out_at) OR (ps.check_in_at IS NOT NULL AND ps.check_out_at IS NULL)) AND ps.check_in_at BETWEEN '${parseData(today)} 17:00:00' AND '${parseData(tomorrow)} 17:00:00' AND
       
       ps.check_in_at IS NOT NULL AND 
       

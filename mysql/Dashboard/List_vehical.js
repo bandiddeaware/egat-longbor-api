@@ -179,6 +179,12 @@ const FindLog = async (
       LEFT JOIN tb_provinces as pv
         ON vh.province_id = pv.id
 
+      LEFT JOIN vehicle_brand as vhb
+        ON vh.model = vhb.id
+
+      LEFT JOIN vehicle_classification as vhcl
+        ON vh.classification = vhcl.id
+
       WHERE 
         (acl.ch_type = 1) AND
 
@@ -207,7 +213,6 @@ const FindLog = async (
 
         acl.access_time BETWEEN ? AND ?
     `
-    console.log(query_string_length)
     const [length] = await conn.query(query_string_length,[ 
       start_time, stop_time,
     ])
@@ -229,7 +234,12 @@ const FindLog = async (
       pv.name_th AS province_name,
 
       acl.entrance_id AS station_id,
-      acl.ch_id AS channel_id
+      acl.ch_id AS channel_id,
+
+      vhb.name as vehicle_brand,
+      vhcl.type as vehicle_classification,
+
+      vht.description as description
 
       FROM access_log as acl
 
@@ -250,6 +260,15 @@ const FindLog = async (
       
       LEFT JOIN tb_provinces as pv
         ON vh.province_id = pv.id
+
+      LEFT JOIN vehicle_brand as vhb
+        ON vh.model = vhb.id
+
+      LEFT JOIN vehicle_classification as vhcl
+        ON vh.classification = vhcl.id
+      
+      LEFT JOIN vehicle_type as vht
+        ON vht.id = vh.type
 
       WHERE 
         (acl.ch_type = 1) AND
